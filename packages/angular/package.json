@@ -1,0 +1,36 @@
+{
+  "name": "@gehu/angular",
+  "version": "0.0.0",
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": ["dist"],
+  "dependencies": {
+    "@gehu/core": "workspace:*"
+  },
+  "peerDependencies": {
+    "@angular/core": ">=18"
+  },
+  "devDependencies": {
+    "@angular/common": "^20.0.0",
+    "@angular/compiler": "^20.0.0",
+    "@angular/core": "^20.0.0",
+    "@angular/platform-browser": "^20.0.0",
+    "@angular/platform-browser-dynamic": "^20.0.0",
+    "jsdom": "^25.0.0",
+    "rxjs": "^7.8.0",
+    "tslib": "^2.6.0",
+    "vitest": "^2.1.0",
+    "zone.js": "^0.15.0"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run"
+  }
+}

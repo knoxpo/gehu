@@ -1,0 +1,14 @@
+{
+  "name": "gehu",
+  "private": true,
+  "type": "module",
+  "workspaces": ["packages/*", "examples/*"],
+  "scripts": {
+    "build": "bun run --filter '@gehu/*' build",
+    "typecheck": "bun run --filter '@gehu/*' typecheck",
+    "test": "bun test"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.0"
+  }
+}
