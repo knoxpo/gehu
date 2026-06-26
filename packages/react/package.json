@@ -1,49 +1,49 @@
 {
-	"name": "@gehu-js/react",
-	"version": "0.0.0",
-	"type": "module",
-	"sideEffects": false,
-	"main": "./dist/cjs/index.js",
-	"module": "./dist/esm/index.js",
-	"types": "./dist/types/index.d.ts",
-	"exports": {
-		".": {
-			"types": "./dist/types/index.d.ts",
-			"import": "./dist/esm/index.js",
-			"require": "./dist/cjs/index.js"
-		},
-		"./server": {
-			"types": "./dist/types/server.d.ts",
-			"import": "./dist/esm/server.js",
-			"require": "./dist/cjs/server.js"
-		}
-	},
-	"files": [
-		"dist"
-	],
-	"dependencies": {
-		"@gehu-js/core": "workspace:*"
-	},
-	"peerDependencies": {
-		"react": "^18 || ^19",
-		"react-dom": "^18 || ^19"
-	},
-	"devDependencies": {
-		"@testing-library/react": "^16.1.0",
-		"@types/react": "^19.0.0",
-		"@types/react-dom": "^19.0.0",
-		"jsdom": "^25.0.0",
-		"react": "^19.0.0",
-		"react-dom": "^19.0.0",
-		"vitest": "^2.1.0"
-	},
-	"scripts": {
-		"clean": "rm -rf dist",
-		"build:esm": "tsc -p tsconfig.json --outDir dist/esm",
-		"build:cjs": "tsc -p tsconfig.json --outDir dist/cjs --module commonjs --moduleResolution node --verbatimModuleSyntax false --declaration false --declarationMap false && bun -e \"await Bun.write('dist/cjs/package.json', '{\\n  \\\"type\\\": \\\"commonjs\\\"\\n}\\n')\"",
-		"build:types": "tsc -p tsconfig.json --outDir dist/types --emitDeclarationOnly true",
-		"build": "bun run --filter '@gehu-js/core' build && bun run clean && bun run build:esm && bun run build:cjs && bun run build:types",
-		"typecheck": "bun run --filter '@gehu-js/core' build && tsc -p tsconfig.json --noEmit",
-		"test": "bun run --filter '@gehu-js/core' build && vitest run"
-	}
+  "name": "@gehu-js/react",
+  "version": "0.1.0",
+  "type": "module",
+  "sideEffects": false,
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js"
+    },
+    "./server": {
+      "types": "./dist/types/server.d.ts",
+      "import": "./dist/esm/server.js",
+      "require": "./dist/cjs/server.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "@gehu-js/core": "workspace:*"
+  },
+  "peerDependencies": {
+    "react": "^18 || ^19",
+    "react-dom": "^18 || ^19"
+  },
+  "devDependencies": {
+    "@testing-library/react": "^16.1.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "jsdom": "^25.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "vitest": "^2.1.0"
+  },
+  "scripts": {
+    "clean": "rm -rf dist",
+    "build:esm": "tsc -p tsconfig.json --outDir dist/esm",
+    "build:cjs": "tsc -p tsconfig.json --outDir dist/cjs --module commonjs --moduleResolution node --verbatimModuleSyntax false --declaration false --declarationMap false && bun -e \"await Bun.write('dist/cjs/package.json', '{\\n  \\\"type\\\": \\\"commonjs\\\"\\n}\\n')\"",
+    "build:types": "tsc -p tsconfig.json --outDir dist/types --emitDeclarationOnly true",
+    "build": "bun run --filter '@gehu-js/core' build && bun run clean && bun run build:esm && bun run build:cjs && bun run build:types",
+    "typecheck": "bun run --filter '@gehu-js/core' build && tsc -p tsconfig.json --noEmit",
+    "test": "bun run --filter '@gehu-js/core' build && vitest run"
+  }
 }
