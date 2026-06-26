@@ -7,10 +7,10 @@ declare function structuredClone<T>(value: T): T;
 // Minimal AbortController/AbortSignal (md §10 allowed) — just what resource.ts
 // touches. Avoids pulling the DOM lib.
 interface AbortSignal {
-  readonly aborted: boolean;
+	readonly aborted: boolean;
 }
 interface AbortController {
-  readonly signal: AbortSignal;
-  abort(): void;
+	readonly signal: AbortSignal;
+	abort(): void;
 }
 declare const AbortController: { new (): AbortController };

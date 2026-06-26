@@ -1,12 +1,12 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { injectStore } from '@gehu/angular';
-import { counterStore } from './counter.store';
+import { ChangeDetectionStrategy, Component } from "@angular/core";
+import { injectStore } from "@gehu/angular";
+import { counterStore } from "./counter.store";
 
 @Component({
-  selector: 'app-home',
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
+	selector: "app-home",
+	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
     <main style="font-family: system-ui; max-width: 26rem; margin: 4rem auto; text-align: center">
       <h1>Gehu · SSR + hydration</h1>
       <p style="font-size: 3rem; margin: 0.5rem">{{ counter.count() }}</p>
@@ -22,5 +22,5 @@ import { counterStore } from './counter.store';
   `,
 })
 export class HomeComponent {
-  counter = injectStore(counterStore);
+	counter = injectStore(counterStore);
 }

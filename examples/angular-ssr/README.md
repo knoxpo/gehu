@@ -22,4 +22,12 @@ What it shows:
 - `injectStore(counterStore)` in the [component](src/app/app.component.ts), with
   signals driving both the server render and the hydrated client.
 
-View source of the served page to see `count = 42` in the server-rendered HTML.
+View source of the served page to see `count = 42` in the server-rendered HTML
+(`ng-server-context="ssr"` confirms it was rendered on the server, not the client).
+
+Notes for Angular 20 SSR:
+
+- `main.server.ts` must thread the `BootstrapContext` into `bootstrapApplication`.
+- The server enforces an SSRF Host allowlist. This demo allows `localhost` in
+  [`server.ts`](src/server.ts); in production set your real host there or via the
+  `NG_ALLOWED_HOSTS` env var.

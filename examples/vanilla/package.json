@@ -1,17 +1,17 @@
 {
-  "name": "@gehu-example/vanilla",
-  "version": "0.0.0",
-  "private": true,
-  "type": "module",
-  "dependencies": {
-    "@gehu/core": "workspace:*",
-    "@gehu/persist": "workspace:*",
-    "@gehu/devtools": "workspace:*"
-  },
-  "scripts": {
-    "start": "bun run index.ts",
-    "resources": "bun run resources.ts",
-    "persist": "bun run persist.ts",
-    "devtools": "bun run devtools.ts"
-  }
+	"name": "@gehu-example/vanilla",
+	"version": "0.0.0",
+	"private": true,
+	"type": "module",
+	"dependencies": {
+		"@gehu/core": "workspace:*",
+		"@gehu/persist": "workspace:*",
+		"@gehu/devtools": "workspace:*"
+	},
+	"scripts": {
+		"start": "bun run index.ts",
+		"resources": "bun run resources.ts",
+		"persist": "bun run persist.ts",
+		"devtools": "bun run devtools.ts"
+	}
 }

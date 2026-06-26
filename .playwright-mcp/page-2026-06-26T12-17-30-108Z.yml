@@ -1,0 +1,8 @@
+- main [ref=e3]:
+  - heading "Gehu · Angular basic" [level=1] [ref=e4]
+  - paragraph [ref=e5]: "0"
+  - paragraph [ref=e6]: double = 0
+  - generic [ref=e7]:
+    - button "−" [ref=e8]
+    - button "+" [ref=e9]
+    - button "reset" [ref=e10]

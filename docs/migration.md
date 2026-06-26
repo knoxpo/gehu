@@ -65,3 +65,62 @@ export class CounterComponent {
   call sites (`x.count()`) are unchanged — both are signals.
 - Need a fresh instance per component? `providers: [provideStore(myStore)]`.
 - Replace manual `localStorage` syncing with `persist: { ... }` (it's SSR-safe).
+
+## Migration: from NgRx Signal Store
+
+Gehu also ships a compatibility DSL for teams already using `@ngrx/signals`.
+The v1 target is a one-line import-path change to `@gehu/angular/ngrx-compat`,
+not a full reimplementation of every NgRx helper.
+
+```ts
+import { inject } from '@angular/core';
+import {
+  patchState,
+  signalStore,
+  withComputed,
+  withMethods,
+  withState,
+} from '@gehu/angular/ngrx-compat';
+
+export const CounterStore = signalStore(
+  { name: 'counter' },
+  withState({ count: 0 }),
+  withComputed(({ count }) => ({ doubleCount: () => count() * 2 })),
+  withMethods((store) => ({
+    increment(): void {
+      patchState(store, ({ count }) => ({ count: count + 1 }));
+    },
+  })),
+);
+
+@Component({
+  providers: [CounterStore],
+  template: `{{ store.count() }} / {{ store.doubleCount() }}`,
+})
+export class CounterComponent {
+  readonly store = inject(CounterStore);
+}
+```
+
+Supported in v1:
+
+- `signalStore`
+- `withState`
+- `withComputed`
+- `withMethods`
+- `withProps`
+- `withHooks`
+- `patchState`
+
+Not included in v1:
+
+- `rxMethod`
+- entity helpers
+- advanced `signalStoreFeature` composition
+
+The same compat store can also flow through Gehu DI:
+
+```ts
+providers: [provideGehu(), provideStore(CounterStore)];
+const store = injectStore(CounterStore);
+```

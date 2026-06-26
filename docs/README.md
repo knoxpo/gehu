@@ -15,7 +15,7 @@
 | [plugins.md](plugins.md) | writing your own plugin |
 | [testing.md](testing.md) | `@gehu/testing`, mocks, capture |
 | [bundle-size.md](bundle-size.md) | size budget + how to stay small |
-| [migration.md](migration.md) | from an Angular service-with-signals store |
+| [migration.md](migration.md) | migration from Angular signal services and NgRx Signal Store |
 
 ## The one-paragraph mental model
 

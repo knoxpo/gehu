@@ -1,0 +1,14 @@
+- main [ref=e3]:
+  - heading "@gehu/angular/ngrx-compat Example" [level=1] [ref=e4]
+  - generic [ref=e5]:
+    - heading "Counter Store" [level=2] [ref=e6]
+    - paragraph
+    - paragraph
+    - paragraph
+    - generic [ref=e7]:
+      - button "Increment" [ref=e8] [cursor=pointer]
+      - button "Decrement" [ref=e9] [cursor=pointer]
+      - button "Reset" [ref=e10] [cursor=pointer]
+  - generic [ref=e11]:
+    - heading "Users Store (Async)" [level=2] [ref=e12]
+    - button [ref=e14] [cursor=pointer]

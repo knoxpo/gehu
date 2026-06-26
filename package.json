@@ -2,13 +2,22 @@
   "name": "gehu",
   "private": true,
   "type": "module",
-  "workspaces": ["packages/*", "examples/*"],
+  "workspaces": [
+    "packages/*",
+    "examples/*"
+  ],
   "scripts": {
     "build": "bun run --filter '@gehu/*' build",
     "typecheck": "bun run --filter '@gehu/*' typecheck",
     "test": "bun test"
   },
+  "catalogs": {
+    "base": {
+      "typescript": ">=5.8.0 <7.0.0"
+    }
+  },
   "devDependencies": {
-    "typescript": "^5.5.0"
+    "@types/bun": "^1.3.14",
+    "typescript": "catalog:base"
   }
 }

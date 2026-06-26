@@ -1,12 +1,12 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { injectStore } from '@gehu/angular';
-import { usersStore } from './users.store';
+import { ChangeDetectionStrategy, Component } from "@angular/core";
+import { injectStore } from "@gehu/angular";
+import { usersStore } from "./users.store";
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
+	selector: "app-root",
+	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
     <main style="font-family: system-ui; max-width: 26rem; margin: 4rem auto; text-align: center">
       <h1>Gehu · Zoneless + resource</h1>
       <div style="display: flex; gap: 0.5rem; justify-content: center">
@@ -27,5 +27,5 @@ import { usersStore } from './users.store';
   `,
 })
 export class AppComponent {
-  users = injectStore(usersStore);
+	users = injectStore(usersStore);
 }

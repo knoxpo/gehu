@@ -1,0 +1,10 @@
+{
+	"files": {
+		"includes": [
+			"**",
+			"!!**/dist",
+			"!!**/node_modules",
+			"!!packages/angular/tmp-compat-check.ts"
+		]
+	}
+}
