@@ -1,5 +1,11 @@
 import { computed } from "@angular/core";
-import { signalStore, withState, withComputed, withMethods, patchState } from "@gehu/angular/ngrx-compat";
+import {
+	patchState,
+	signalStore,
+	withComputed,
+	withMethods,
+	withState,
+} from "@gehu-js/angular/ngrx-compat";
 
 export interface User {
 	id: number;

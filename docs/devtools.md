@@ -1,15 +1,15 @@
 # Devtools
 
-`@gehu/devtools` is an **event bridge only** — no UI ships in your bundle
+`@gehu-js/devtools` is an **event bridge only** — no UI ships in your bundle
 (~0.9 KB gzip). It's a plugin; opt-in is the production gate.
 
 ```ts
-import { devtools, devtoolsBus } from '@gehu/devtools';
+import { devtools, devtoolsBus } from '@gehu-js/devtools';
 
 // explicit plugin
 createStore(factory, { name: 'cart', plugins: [devtools()] });
 
-// or shorthand (after importing @gehu/devtools once)
+// or shorthand (after importing @gehu-js/devtools once)
 createStore(factory, { name: 'cart', devtools: true });
 
 // consume events in-process

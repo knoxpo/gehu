@@ -1,23 +1,28 @@
 {
-  "name": "gehu",
-  "private": true,
-  "type": "module",
-  "workspaces": [
-    "packages/*",
-    "examples/*"
-  ],
-  "scripts": {
-    "build": "bun run --filter '@gehu/*' build",
-    "typecheck": "bun run --filter '@gehu/*' typecheck",
-    "test": "bun test"
-  },
-  "catalogs": {
-    "base": {
-      "typescript": ">=5.8.0 <7.0.0"
-    }
-  },
-  "devDependencies": {
-    "@types/bun": "^1.3.14",
-    "typescript": "catalog:base"
-  }
+	"name": "gehu",
+	"private": true,
+	"type": "module",
+	"workspaces": [
+		"packages/*",
+		"examples/*"
+	],
+	"scripts": {
+		"build": "bun run --filter '@gehu-js/core' build && bun run --filter '@gehu-js/angular' build && bun run --filter '@gehu-js/react' build && bun run --filter '@gehu-js/persist' build && bun run --filter '@gehu-js/devtools' build && bun run --filter '@gehu-js/testing' build",
+		"typecheck": "bun run --filter '@gehu-js/core' typecheck && bun run --filter '@gehu-js/angular' typecheck && bun run --filter '@gehu-js/react' typecheck && bun run --filter '@gehu-js/persist' typecheck && bun run --filter '@gehu-js/devtools' typecheck && bun run --filter '@gehu-js/testing' typecheck",
+		"test": "bun test",
+		"format": "biome format --write .",
+		"lint": "biome check .",
+		"lint:fix": "biome check --write ."
+	},
+	"catalogs": {
+		"base": {
+			"@types/bun": "^1.3.14",
+			"typescript": ">=5.8.0 <7.0.0"
+		}
+	},
+	"devDependencies": {
+		"@biomejs/biome": "^2.5.1",
+		"@types/bun": "catalog:base",
+		"typescript": "catalog:base"
+	}
 }

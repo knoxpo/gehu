@@ -1,10 +1,10 @@
 # Testing
 
-`@gehu/testing` is **framework- and runner-agnostic** — it imports only
-`@gehu/core`. Use it with Vitest, Jest, Mocha, `bun:test`, anything.
+`@gehu-js/testing` is **framework- and runner-agnostic** — it imports only
+`@gehu-js/core`. Use it with Vitest, Jest, Mocha, `bun:test`, anything.
 
 ```ts
-import { createTestStore } from '@gehu/testing';
+import { createTestStore } from '@gehu-js/testing';
 
 const store = createTestStore(counterStore);
 store.value.inc();
@@ -23,7 +23,7 @@ const store = createTestStore(cartStore, { hydrate: { items: [] } }); // merged 
 ## Mocking resources / mutations
 
 ```ts
-import { mockResource, mockMutation } from '@gehu/testing';
+import { mockResource, mockMutation } from '@gehu-js/testing';
 
 const store = createTestStore(usersStore, {
   resources: { user: mockResource({ data: { id: '1', name: 'Alex' } }) },
@@ -39,7 +39,7 @@ save.calls; // [{ name: 'A' }]  — records inputs
 ## Flushing
 
 ```ts
-import { flushEffects, flushResources } from '@gehu/testing';
+import { flushEffects, flushResources } from '@gehu-js/testing';
 
 store.value.inc();
 flushEffects();        // run pending subscriptions synchronously
@@ -49,7 +49,7 @@ await flushResources(); // let real resource fetches settle
 ## Capturing
 
 ```ts
-import { captureActions, capturePatches } from '@gehu/testing';
+import { captureActions, capturePatches } from '@gehu-js/testing';
 
 const actions = captureActions(store.value); // records action names when called
 const patches = capturePatches(store.value); // records shallow state diffs
@@ -63,17 +63,17 @@ actions.stop(); patches.stop();
 ## Linked stores
 
 ```ts
-import { createLinkedTestStore } from '@gehu/testing';
+import { createLinkedTestStore } from '@gehu-js/testing';
 const test = createLinkedTestStore(checkoutStore);
 ```
 
 ## Angular
 
-Angular-specific helpers live in `@gehu/angular` (so `@gehu/testing` stays
+Angular-specific helpers live in `@gehu-js/angular` (so `@gehu-js/testing` stays
 framework-free):
 
 ```ts
-import { provideGehuTesting, provideMockStore } from '@gehu/angular';
+import { provideGehuTesting, provideMockStore } from '@gehu-js/angular';
 
 TestBed.configureTestingModule({
   providers: [

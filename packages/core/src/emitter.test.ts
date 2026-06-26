@@ -21,11 +21,7 @@ describe("core event emitter", () => {
 			{ plugins: [capturePlugin(events)] },
 		);
 		store.inc();
-		expect(types(events)).toEqual([
-			"action.started",
-			"state.changed",
-			"action.completed",
-		]);
+		expect(types(events)).toEqual(["action.started", "state.changed", "action.completed"]);
 		const patch = (events[1] as StoreEvent).payload as { patch: unknown };
 		expect(patch.patch).toEqual({ count: 1 });
 		expect((events[0] as StoreEvent).target).toBe("inc");
@@ -76,22 +72,16 @@ describe("core event emitter", () => {
 
 	test("linkedStore.connected carries sub-store names", () => {
 		const events: StoreEvent[] = [];
-		const a = createStore(
-			({ set }) => ({ n: 1, setN: (x: number) => set({ n: x }) }),
-			{ name: "a" },
-		);
-		const b = createStore(
-			({ set }) => ({ m: 2, setM: (x: number) => set({ m: x }) }),
-			{ name: "b" },
-		);
-		linkedStore(
-			{ a, b },
-			({ stores }) => ({ total: () => stores.a.n() + stores.b.m() }),
-			{
-				name: "sum",
-				plugins: [capturePlugin(events)],
-			},
-		);
+		const a = createStore(({ set }) => ({ n: 1, setN: (x: number) => set({ n: x }) }), {
+			name: "a",
+		});
+		const b = createStore(({ set }) => ({ m: 2, setM: (x: number) => set({ m: x }) }), {
+			name: "b",
+		});
+		linkedStore({ a, b }, ({ stores }) => ({ total: () => stores.a.n() + stores.b.m() }), {
+			name: "sum",
+			plugins: [capturePlugin(events)],
+		});
 		expect(types(events)).toContain("linkedStore.connected");
 		const ev = events.find((e) => e.type === "linkedStore.connected");
 		if (!ev) throw new Error("missing linkedStore.connected event");

@@ -1,7 +1,7 @@
 // Phase 4 demo: persistence via the plugin system (md §14), framework-free.
 // Run: bun run persist.ts
-import { createStore, flushSync, memoryStorage } from "@gehu/core";
-import { persist } from "@gehu/persist";
+import { createStore, flushSync, memoryStorage } from "@gehu-js/core";
+import { persist } from "@gehu-js/persist";
 
 // A shared adapter stands in for localStorage (which Bun/Node lack). In a
 // browser you'd use storage: 'local'.

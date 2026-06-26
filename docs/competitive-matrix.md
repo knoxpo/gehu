@@ -95,7 +95,7 @@ Outside that zone:
 
 ## Improvement priority for Gehu
 
-1. **Ship `@gehu/react`**
+1. **Ship `@gehu-js/react`**
 2. **Ship React + Next.js examples and docs**
 3. **Ship a real devtools UI**
 4. **Improve the fragmented-state / fine-grained rendering story**

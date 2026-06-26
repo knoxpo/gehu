@@ -1,5 +1,5 @@
-// @gehu/testing — framework- and runner-agnostic store testing (md §16).
-// Imports only @gehu/core: no Jest/Vitest/Mocha, no Angular.
+// @gehu-js/testing — framework- and runner-agnostic store testing (md §16).
+// Imports only @gehu-js/core: no Jest/Vitest/Mocha, no Angular.
 
 export type { ActionCapture, PatchCapture } from "./capture.js";
 export { captureActions, capturePatches } from "./capture.js";

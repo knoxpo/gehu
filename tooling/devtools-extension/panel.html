@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="panel.css" />
+  </head>
+  <body>
+    <header class="toolbar">
+      <strong class="brand">Gehu</strong>
+      <span class="filters" id="filters"></span>
+      <span class="spacer"></span>
+      <label class="follow"><input type="checkbox" id="pause" /> Pause</label>
+      <button id="clear">Clear</button>
+      <button id="export">Export</button>
+    </header>
+
+    <div class="layout">
+      <aside class="rail">
+        <div class="rail-title">Stores</div>
+        <ul id="registry" class="registry"></ul>
+        <div class="rail-title">Graph</div>
+        <div id="graph" class="graph"></div>
+      </aside>
+
+      <main class="main">
+        <nav class="tabs" id="tabs">
+          <button data-tab="timeline" class="active">Timeline</button>
+          <button data-tab="snapshot">Snapshot</button>
+          <button data-tab="diff">Patch diff</button>
+          <button data-tab="async">Resources / Mutations</button>
+          <button data-tab="perf">Perf hints</button>
+        </nav>
+        <section class="view" id="view-timeline"></section>
+        <section class="view hidden" id="view-snapshot"></section>
+        <section class="view hidden" id="view-diff"></section>
+        <section class="view hidden" id="view-async"></section>
+        <section class="view hidden" id="view-perf"></section>
+      </main>
+    </div>
+
+    <script src="panel.js"></script>
+  </body>
+</html>

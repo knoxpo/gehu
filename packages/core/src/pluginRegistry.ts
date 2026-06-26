@@ -1,11 +1,8 @@
-// Lets @gehu/persist register how a `config.persist` shorthand becomes a plugin,
-// without core ever importing @gehu/persist (keeps core pure / browser-free).
+// Lets @gehu-js/persist register how a `config.persist` shorthand becomes a plugin,
+// without core ever importing @gehu-js/persist (keeps core pure / browser-free).
 import type { PersistConfig, StoreConfig, StorePlugin } from "./types.js";
 
-type PersistFactory = (
-	persist: PersistConfig,
-	config: StoreConfig,
-) => StorePlugin;
+type PersistFactory = (persist: PersistConfig, config: StoreConfig) => StorePlugin;
 type DevtoolsFactory = (config: StoreConfig) => StorePlugin;
 
 let persistFactory: PersistFactory | null = null;

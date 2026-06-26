@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component, OnInit, effect, inject } from "@angular/core";
 import { CommonModule } from "@angular/common";
+import { ChangeDetectionStrategy, Component, effect, inject, type OnInit } from "@angular/core";
 import { CounterStore } from "./counter.store";
 import { UsersStore } from "./users.store";
 
@@ -10,7 +10,7 @@ import { UsersStore } from "./users.store";
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<main style="font-family: system-ui; max-width: 32rem; margin: 2rem auto">
-			<h1>@gehu/angular/ngrx-compat Example</h1>
+			<h1>@gehu-js/angular/ngrx-compat Example</h1>
 
 			<section style="border: 1px solid #ddd; padding: 1rem; margin-bottom: 2rem; border-radius: 8px">
 				<h2>Counter Store</h2>

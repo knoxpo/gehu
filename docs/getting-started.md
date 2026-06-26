@@ -3,9 +3,9 @@
 ## Install
 
 ```sh
-npm install @gehu/core
+npm install @gehu-js/core
 # optional
-npm install @gehu/angular @gehu/persist @gehu/devtools @gehu/testing
+npm install @gehu-js/angular @gehu-js/persist @gehu-js/devtools @gehu-js/testing
 ```
 
 Gehu is ESM-first and ships TypeScript declarations. Works in Bun, Node, the
@@ -14,7 +14,7 @@ browser, and during SSR.
 ## Your first store
 
 ```ts
-import { createStore } from '@gehu/core';
+import { createStore } from '@gehu-js/core';
 
 export const counterStore = createStore(
   ({ set, get, ctx }) => ({
@@ -52,7 +52,7 @@ counterStore.inc(); // logs { count: 1 } (fires on change, not immediately)
 stop();
 ```
 
-> In tests, call `flushSync()` from `@gehu/core` to run pending subscriptions
+> In tests, call `flushSync()` from `@gehu-js/core` to run pending subscriptions
 > synchronously.
 
 ## Typing

@@ -1,13 +1,13 @@
 import { computed, isSignal, provideZonelessChangeDetection } from "@angular/core";
 import { TestBed } from "@angular/core/testing";
-import { provideGehu, provideStore } from "@gehu/angular";
+import { provideGehu, provideStore } from "@gehu-js/angular";
 import {
 	patchState,
 	signalStore,
 	withComputed,
 	withMethods,
 	withState,
-} from "@gehu/angular/ngrx-compat";
+} from "@gehu-js/angular/ngrx-compat";
 import { describe, expect, it } from "vitest";
 
 const CounterStore = signalStore(
@@ -28,7 +28,7 @@ describe("compat reactivity repro", () => {
 		TestBed.configureTestingModule({
 			providers: [provideZonelessChangeDetection(), provideGehu(), provideStore(CounterStore)],
 		});
-		const s = TestBed.runInInjectionContext(() => TestBed.inject(CounterStore)) as any;
+		const s = TestBed.runInInjectionContext(() => TestBed.inject(CounterStore));
 		expect(isSignal(s.count)).toBe(true);
 		expect(isSignal(s.doubled)).toBe(true);
 		expect(s.count()).toBe(0);

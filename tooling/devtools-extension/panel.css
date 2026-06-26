@@ -1,0 +1,282 @@
+:root {
+	--bg: #1e1e1e;
+	--bg2: #252526;
+	--bg3: #2d2d30;
+	--fg: #d4d4d4;
+	--muted: #858585;
+	--border: #3c3c3c;
+	--accent: #4ec9b0;
+	--blue: #569cd6;
+	--green: #6a9955;
+	--red: #f48771;
+	--yellow: #dcdcaa;
+	--purple: #c586c0;
+}
+* {
+	box-sizing: border-box;
+}
+html,
+body {
+	margin: 0;
+	height: 100%;
+	font:
+		12px / 1.5 ui-monospace,
+		SFMono-Regular,
+		Menlo,
+		Consolas,
+		monospace;
+	background: var(--bg);
+	color: var(--fg);
+}
+body {
+	display: flex;
+	flex-direction: column;
+}
+
+.toolbar {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	padding: 4px 8px;
+	background: var(--bg2);
+	border-bottom: 1px solid var(--border);
+	flex: 0 0 auto;
+}
+.brand {
+	color: var(--accent);
+}
+.spacer {
+	flex: 1;
+}
+.toolbar button {
+	background: var(--bg3);
+	color: var(--fg);
+	border: 1px solid var(--border);
+	border-radius: 3px;
+	padding: 2px 8px;
+	cursor: pointer;
+}
+.toolbar button:hover {
+	background: var(--border);
+}
+.follow {
+	color: var(--muted);
+}
+.filters {
+	display: flex;
+	gap: 4px;
+}
+.chip {
+	padding: 1px 7px;
+	border-radius: 10px;
+	cursor: pointer;
+	border: 1px solid var(--border);
+	color: var(--muted);
+	user-select: none;
+}
+.chip.on {
+	color: var(--bg);
+}
+
+.layout {
+	display: flex;
+	flex: 1;
+	min-height: 0;
+}
+.rail {
+	width: 200px;
+	flex: 0 0 auto;
+	overflow: auto;
+	background: var(--bg2);
+	border-right: 1px solid var(--border);
+}
+.rail-title {
+	padding: 6px 8px 2px;
+	color: var(--muted);
+	text-transform: uppercase;
+	font-size: 10px;
+	letter-spacing: 0.5px;
+}
+.registry {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+.registry li {
+	padding: 4px 8px;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	gap: 6px;
+}
+.registry li:hover {
+	background: var(--bg3);
+}
+.registry li.selected {
+	background: var(--bg3);
+	color: var(--accent);
+}
+.registry li.dead {
+	color: var(--muted);
+	text-decoration: line-through;
+}
+.dot {
+	width: 6px;
+	height: 6px;
+	border-radius: 50%;
+	background: var(--green);
+	flex: 0 0 auto;
+}
+.dead .dot {
+	background: var(--muted);
+}
+.graph {
+	padding: 4px 8px;
+	color: var(--muted);
+}
+.graph .node {
+	color: var(--blue);
+}
+
+.main {
+	flex: 1;
+	min-width: 0;
+	display: flex;
+	flex-direction: column;
+}
+.tabs {
+	display: flex;
+	gap: 2px;
+	padding: 4px 6px 0;
+	background: var(--bg2);
+	border-bottom: 1px solid var(--border);
+}
+.tabs button {
+	background: transparent;
+	color: var(--muted);
+	border: 1px solid transparent;
+	border-bottom: none;
+	padding: 4px 10px;
+	cursor: pointer;
+	border-radius: 3px 3px 0 0;
+}
+.tabs button.active {
+	background: var(--bg);
+	color: var(--fg);
+	border-color: var(--border);
+}
+.view {
+	flex: 1;
+	overflow: auto;
+	padding: 6px 8px;
+}
+.hidden {
+	display: none;
+}
+.empty {
+	color: var(--muted);
+	padding: 12px;
+}
+
+.row {
+	display: flex;
+	gap: 8px;
+	padding: 2px 4px;
+	border-bottom: 1px solid var(--bg3);
+	cursor: pointer;
+	white-space: nowrap;
+}
+.row:hover {
+	background: var(--bg2);
+}
+.row.sel {
+	background: var(--bg3);
+}
+.row .time {
+	color: var(--muted);
+	flex: 0 0 auto;
+}
+.row .store {
+	color: var(--blue);
+	flex: 0 0 auto;
+}
+.row .type {
+	flex: 0 0 auto;
+}
+.row .target {
+	color: var(--yellow);
+}
+.row .detail {
+	color: var(--muted);
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.t-state {
+	color: var(--accent);
+}
+.t-action {
+	color: var(--blue);
+}
+.t-resource {
+	color: var(--purple);
+}
+.t-mutation {
+	color: var(--yellow);
+}
+.t-linked {
+	color: var(--green);
+}
+.t-store {
+	color: var(--muted);
+}
+.t-error {
+	color: var(--red);
+}
+
+pre.json {
+	margin: 0;
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+.diff-key {
+	color: var(--yellow);
+}
+.diff-prev {
+	color: var(--red);
+}
+.diff-next {
+	color: var(--green);
+}
+table.async {
+	width: 100%;
+	border-collapse: collapse;
+}
+table.async th,
+table.async td {
+	text-align: left;
+	padding: 3px 8px;
+	border-bottom: 1px solid var(--bg3);
+}
+table.async th {
+	color: var(--muted);
+	font-weight: normal;
+}
+.status-loading {
+	color: var(--blue);
+}
+.status-success {
+	color: var(--green);
+}
+.status-error {
+	color: var(--red);
+}
+.status-idle {
+	color: var(--muted);
+}
+.hint {
+	padding: 4px 8px;
+	border-left: 2px solid var(--yellow);
+	margin-bottom: 6px;
+	color: var(--fg);
+}

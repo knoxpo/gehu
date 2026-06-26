@@ -1,4 +1,4 @@
-import { createStore } from "@gehu/core";
+import { createStore } from "@gehu-js/core";
 
 export type User = { id: string; name: string };
 
@@ -8,9 +8,7 @@ const DB: Record<string, User> = {
 	"2": { id: "2", name: "Sam" },
 };
 const getUser = (id: string): Promise<User> =>
-	new Promise((resolve) =>
-		setTimeout(() => resolve(DB[id] ?? { id, name: "Unknown" }), 400),
-	);
+	new Promise((resolve) => setTimeout(() => resolve(DB[id] ?? { id, name: "Unknown" }), 400));
 
 export const usersStore = createStore(
 	({ set, get, ctx }) => ({

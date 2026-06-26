@@ -28,12 +28,12 @@ In Angular, use the helpers + `TransferState`:
 
 ```ts
 // server: collect snapshots (key by each store's config.name)
-import { dehydrate } from '@gehu/angular';
+import { dehydrate } from '@gehu-js/angular';
 const data = dehydrate({ counter: counterStore, cart: cartStore });
 transferState.set(GEHU_STATE_KEY, data);
 
 // client: feed them to GEHU_HYDRATION
-import { GEHU_HYDRATION } from '@gehu/angular';
+import { GEHU_HYDRATION } from '@gehu-js/angular';
 providers: [
   provideGehu(),
   { provide: GEHU_HYDRATION, useValue: transferState.get(GEHU_STATE_KEY, {}) },
@@ -45,7 +45,7 @@ The registry seeds each store's initial state from `GEHU_HYDRATION` (matched by
 
 ### Precedence
 
-If both a hydrated value and persisted state exist, `@gehu/persist` decides via
+If both a hydrated value and persisted state exist, `@gehu-js/persist` decides via
 `hydratePrecedence` (default `'hydrate'`) — see [persistence.md](persistence.md).
 
 ## React / Next.js (future)

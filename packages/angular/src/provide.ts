@@ -5,8 +5,8 @@ import {
 	makeEnvironmentProviders,
 	type Provider,
 } from "@angular/core";
-import type { StateOf, Store } from "@gehu/core";
-import { buildStore, getStoreDef } from "@gehu/core";
+import type { StateOf, Store } from "@gehu-js/core";
+import { buildStore, getStoreDef } from "@gehu-js/core";
 import { angularSignalAdapter } from "./adapter.js";
 import {
 	type CompatStoreToken,
@@ -15,12 +15,7 @@ import {
 	isCompatStoreToken,
 } from "./ngrx-compat/internals.js";
 import { GEHU_REGISTRY, GehuRegistry } from "./registry.js";
-import {
-	GEHU_CONFIG,
-	GEHU_HYDRATION,
-	type GehuConfig,
-	tokenFor,
-} from "./tokens.js";
+import { GEHU_CONFIG, GEHU_HYDRATION, type GehuConfig, tokenFor } from "./tokens.js";
 
 /** Root setup (md §12). Renamed from md's stale `provideVeducx`. */
 export function provideGehu(config: GehuConfig = {}): EnvironmentProviders {
@@ -29,10 +24,7 @@ export function provideGehu(config: GehuConfig = {}): EnvironmentProviders {
 		{
 			provide: GEHU_REGISTRY,
 			useFactory: () =>
-				new GehuRegistry(
-					inject(Injector),
-					inject(GEHU_HYDRATION, { optional: true }) ?? null,
-				),
+				new GehuRegistry(inject(Injector), inject(GEHU_HYDRATION, { optional: true }) ?? null),
 		},
 	]);
 }
@@ -77,7 +69,7 @@ export function provideGehuTesting(): EnvironmentProviders {
 }
 
 /** Provide a scoped instance seeded with mock state merged over the defaults. */
-export function provideMockStore<T>(
+export function provideMockStore<T extends object>(
 	store: Store<T>,
 	initialState: Partial<StateOf<T>>,
 ): Provider {

@@ -1,5 +1,5 @@
-// Proves @gehu/core works outside any framework (md §10). Run: bun run index.ts
-import { createStore } from "@gehu/core";
+// Proves @gehu-js/core works outside any framework (md §10). Run: bun run index.ts
+import { createStore } from "@gehu-js/core";
 
 const counter = createStore(
 	({ set, get, ctx }) => ({
@@ -15,12 +15,7 @@ console.log("count:", counter.count(), "double:", counter.double());
 counter.inc();
 counter.inc();
 counter.inc();
-console.log(
-	"after 3x inc → count:",
-	counter.count(),
-	"double:",
-	counter.double(),
-);
+console.log("after 3x inc → count:", counter.count(), "double:", counter.double());
 console.log("snapshot:", counter.snapshot());
 counter.reset();
 console.log("after reset → snapshot:", counter.snapshot());

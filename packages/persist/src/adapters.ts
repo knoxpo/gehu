@@ -1,7 +1,7 @@
 // Browser storage adapters (md §14). All browser-gated: when the global is
 // absent (SSR/Node/Bun), fall back to memory — never throws, never touches
 // storage on the server.
-import { memoryStorage, type StorageAdapter } from "@gehu/core";
+import { memoryStorage, type StorageAdapter } from "@gehu-js/core";
 
 declare const localStorage: StorageAdapter | undefined;
 declare const sessionStorage: StorageAdapter | undefined;
@@ -22,24 +22,18 @@ function fromGlobal(get: () => StorageAdapter | undefined): StorageAdapter {
 }
 
 export function localStorageAdapter(): StorageAdapter {
-	return fromGlobal(() =>
-		typeof localStorage === "undefined" ? undefined : localStorage,
-	);
+	return fromGlobal(() => (typeof localStorage === "undefined" ? undefined : localStorage));
 }
 
 export function sessionStorageAdapter(): StorageAdapter {
-	return fromGlobal(() =>
-		typeof sessionStorage === "undefined" ? undefined : sessionStorage,
-	);
+	return fromGlobal(() => (typeof sessionStorage === "undefined" ? undefined : sessionStorage));
 }
 
 export { memoryStorage };
 
 export type StorageChoice = "local" | "session" | "memory" | StorageAdapter;
 
-export function resolveStorage(
-	choice: StorageChoice | undefined,
-): StorageAdapter {
+export function resolveStorage(choice: StorageChoice | undefined): StorageAdapter {
 	if (choice === "local") return localStorageAdapter();
 	if (choice === "session") return sessionStorageAdapter();
 	if (choice === "memory" || choice == null) return memoryStorage();

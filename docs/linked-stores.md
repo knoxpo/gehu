@@ -4,7 +4,7 @@
 and reads/acts across the linked stores via `stores.x`.
 
 ```ts
-import { linkedStore } from '@gehu/core';
+import { linkedStore } from '@gehu-js/core';
 
 export const checkoutStore = linkedStore(
   {

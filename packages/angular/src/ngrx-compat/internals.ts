@@ -7,14 +7,8 @@ import {
 	type Type,
 	ɵɵdefineInjectable,
 } from "@angular/core";
-import type {
-	CleanupFn,
-	SignalLike,
-	Store,
-	StoreConfig,
-	StorePlugin,
-} from "@gehu/core";
-import { buildStore } from "@gehu/core";
+import type { CleanupFn, SignalLike, Store, StoreConfig, StorePlugin } from "@gehu-js/core";
+import { buildStore } from "@gehu-js/core";
 import { angularSignalAdapter } from "../adapter.js";
 
 const FEATURE = Symbol("gehu.ngrxCompatFeature");
@@ -24,11 +18,7 @@ declare const COMPAT_STATE: unique symbol;
 
 type Dict = Record<string, unknown>;
 
-type CompatMembers<
-	State extends object,
-	Props extends object,
-	Methods extends object,
-> = {
+type CompatMembers<State extends object, Props extends object, Methods extends object> = {
 	[K in keyof State]: Signal<State[K]>;
 } & Props &
 	Methods & {
@@ -41,37 +31,29 @@ type CompatMembers<
 type StateSignals<State extends object> = {
 	[K in keyof State]: Signal<State[K]>;
 };
-type ComputedResult<
-	DictT extends Record<string, SignalLike<unknown> | (() => unknown)>,
-> = {
+type ComputedResult<DictT extends Record<string, SignalLike<unknown> | (() => unknown)>> = {
 	[K in keyof DictT]: DictT[K] extends Signal<infer V>
 		? Signal<V>
 		: DictT[K] extends () => infer V
 			? Signal<V>
 			: never;
 };
-type UnionToIntersection<U> = (
-	U extends unknown
-		? (arg: U) => void
-		: never
-) extends (arg: infer I) => void
+type UnionToIntersection<U> = (U extends unknown ? (arg: U) => void : never) extends (
+	arg: infer I,
+) => void
 	? I
 	: never;
 type Prettify<T> = { [K in keyof T]: T[K] } & {};
 type FeatureState<F> =
-	F extends SignalStoreFeature<infer State extends object, object>
-		? State
-		: never;
+	F extends SignalStoreFeature<infer State extends object, object> ? State : never;
 type FeatureView<F> =
-	F extends SignalStoreFeature<object, infer View extends object>
-		? View
-		: never;
-type MergeFeatureState<
-	Features extends readonly SignalStoreFeature<object, object>[],
-> = Prettify<UnionToIntersection<FeatureState<Features[number]>>>;
-type MergeFeatureViews<
-	Features extends readonly SignalStoreFeature<object, object>[],
-> = Prettify<UnionToIntersection<FeatureView<Features[number]>>>;
+	F extends SignalStoreFeature<object, infer View extends object> ? View : never;
+type MergeFeatureState<Features extends readonly SignalStoreFeature<object, object>[]> = Prettify<
+	UnionToIntersection<FeatureState<Features[number]>>
+>;
+type MergeFeatureViews<Features extends readonly SignalStoreFeature<object, object>[]> = Prettify<
+	UnionToIntersection<FeatureView<Features[number]>>
+>;
 
 type CompatHooks = {
 	onInit?: () => void;
@@ -94,10 +76,7 @@ type FeatureBase<
 	readonly __view?: View;
 };
 
-export type SignalStoreFeature<
-	State extends object = object,
-	View extends object = object,
-> =
+export type SignalStoreFeature<State extends object = object, View extends object = object> =
 	| FeatureBase<"state", object | (() => object), State, View>
 	// biome-ignore lint/suspicious/noExplicitAny: compat feature factory needs a loose store parameter for inference
 	| FeatureBase<"props", object | ((store: any) => object), State, View>
@@ -134,33 +113,20 @@ export type CompatStoreToken<T extends object> = Type<T> & {
 	readonly [COMPAT_DEF]: CompatStoreDef;
 };
 
-function feature<
-	Kind extends CompatFeatureKind,
-	Value,
-	State extends object,
-	View extends object,
->(kind: Kind, value: Value): FeatureBase<Kind, Value, State, View> {
-	return { [FEATURE]: true, kind, value } as FeatureBase<
-		Kind,
-		Value,
-		State,
-		View
-	>;
+function feature<Kind extends CompatFeatureKind, Value, State extends object, View extends object>(
+	kind: Kind,
+	value: Value,
+): FeatureBase<Kind, Value, State, View> {
+	return { [FEATURE]: true, kind, value } as FeatureBase<Kind, Value, State, View>;
 }
 
-function isFeature(
-	value: unknown,
-): value is SignalStoreFeature<object, object> {
+function isFeature(value: unknown): value is SignalStoreFeature<object, object> {
 	return !!value && typeof value === "object" && FEATURE in value;
 }
 
-function isCompatToken<T extends object>(
-	value: unknown,
-): value is CompatStoreToken<T> {
+function isCompatToken<T extends object>(value: unknown): value is CompatStoreToken<T> {
 	return (
-		!!value &&
-		(typeof value === "function" || typeof value === "object") &&
-		COMPAT_DEF in value
+		!!value && (typeof value === "function" || typeof value === "object") && COMPAT_DEF in value
 	);
 }
 
@@ -171,18 +137,14 @@ function copyOwnKeys(target: object, source: object): void {
 	}
 }
 
-function getCompatSetter(
-	store: object,
-): (partial: object | ((state: object) => object)) => void {
+function getCompatSetter(store: object): (partial: object | ((state: object) => object)) => void {
 	for (const key of Object.getOwnPropertySymbols(store)) {
 		const value = (store as Record<symbol, unknown>)[key];
 		if (typeof value === "function") {
 			return value as (partial: object | ((state: object) => object)) => void;
 		}
 	}
-	throw new Error(
-		"Compat store could not find the underlying Gehu state setter",
-	);
+	throw new Error("Compat store could not find the underlying Gehu state setter");
 }
 
 function createView(
@@ -232,8 +194,7 @@ function buildState(def: CompatStoreDef): object {
 	const merged: Dict = {};
 	for (const current of def.features) {
 		if (current.kind !== "state") continue;
-		const chunk =
-			typeof current.value === "function" ? current.value() : current.value;
+		const chunk = typeof current.value === "function" ? current.value() : current.value;
 		Object.assign(merged, chunk);
 	}
 	return merged;
@@ -257,15 +218,11 @@ export function createCompatStore<T extends object>(
 	return createView(baseStore, def) as unknown as T;
 }
 
-export function getCompatDef<T extends object>(
-	token: CompatStoreToken<T>,
-): CompatStoreDef {
+export function getCompatDef<T extends object>(token: CompatStoreToken<T>): CompatStoreDef {
 	return token[COMPAT_DEF];
 }
 
-export function isCompatStoreToken<T extends object>(
-	value: unknown,
-): value is CompatStoreToken<T> {
+export function isCompatStoreToken<T extends object>(value: unknown): value is CompatStoreToken<T> {
 	return isCompatToken(value);
 }
 
@@ -319,44 +276,25 @@ export function patchState<State extends object>(
 		  ) => Partial<NonNullable<(typeof store)[typeof COMPAT_STATE]>>),
 ): void {
 	const set = (store as Record<PropertyKey, unknown>)[COMPAT_SET];
-	if (typeof set !== "function")
-		throw new Error("patchState expects a Gehu compat store instance");
+	if (typeof set !== "function") throw new Error("patchState expects a Gehu compat store instance");
 	set(partial as object | ((state: object) => object));
 }
 
-export function signalStore<
-	const Features extends readonly SignalStoreFeature<object, object>[],
->(
+export function signalStore<const Features extends readonly SignalStoreFeature<object, object>[]>(
 	...features: Features
 ): CompatStoreToken<
-	CompatMembers<
-		MergeFeatureState<Features>,
-		MergeFeatureViews<Features>,
-		EmptyObject
-	>
+	CompatMembers<MergeFeatureState<Features>, MergeFeatureViews<Features>, EmptyObject>
 >;
-export function signalStore<
-	const Features extends readonly SignalStoreFeature<object, object>[],
->(
+export function signalStore<const Features extends readonly SignalStoreFeature<object, object>[]>(
 	config: SignalStoreConfig,
 	...features: Features
 ): CompatStoreToken<
-	CompatMembers<
-		MergeFeatureState<Features>,
-		MergeFeatureViews<Features>,
-		EmptyObject
-	>
+	CompatMembers<MergeFeatureState<Features>, MergeFeatureViews<Features>, EmptyObject>
 >;
-export function signalStore<
-	const Features extends readonly SignalStoreFeature<object, object>[],
->(
+export function signalStore<const Features extends readonly SignalStoreFeature<object, object>[]>(
 	...args: [SignalStoreConfig, ...Features] | Features
 ): CompatStoreToken<
-	CompatMembers<
-		MergeFeatureState<Features>,
-		MergeFeatureViews<Features>,
-		EmptyObject
-	>
+	CompatMembers<MergeFeatureState<Features>, MergeFeatureViews<Features>, EmptyObject>
 > {
 	const signalStoreArgs = [...args];
 	const config = isFeature(signalStoreArgs[0])
@@ -386,10 +324,6 @@ export function signalStore<
 		enumerable: false,
 	});
 	return CompatSignalStore as unknown as CompatStoreToken<
-		CompatMembers<
-			MergeFeatureState<Features>,
-			MergeFeatureViews<Features>,
-			EmptyObject
-		>
+		CompatMembers<MergeFeatureState<Features>, MergeFeatureViews<Features>, EmptyObject>
 	>;
 }

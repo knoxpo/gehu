@@ -10,10 +10,10 @@
 | [angular.md](angular.md) | `provideGehu`, `injectStore`, scoping |
 | [zoneless.md](zoneless.md) | zoneless change detection |
 | [ssr.md](ssr.md) | server rendering, hydration, per-request isolation |
-| [persistence.md](persistence.md) | `@gehu/persist`, storage adapters, migration |
-| [devtools.md](devtools.md) | `@gehu/devtools` event bridge |
+| [persistence.md](persistence.md) | `@gehu-js/persist`, storage adapters, migration |
+| [devtools.md](devtools.md) | `@gehu-js/devtools` event bridge |
 | [plugins.md](plugins.md) | writing your own plugin |
-| [testing.md](testing.md) | `@gehu/testing`, mocks, capture |
+| [testing.md](testing.md) | `@gehu-js/testing`, mocks, capture |
 | [bundle-size.md](bundle-size.md) | size budget + how to stay small |
 | [migration.md](migration.md) | migration from Angular signal services and NgRx Signal Store |
 

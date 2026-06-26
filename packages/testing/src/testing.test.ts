@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import { createStore, linkedStore } from "@gehu/core";
+import { createStore, linkedStore } from "@gehu-js/core";
 import {
 	captureActions,
 	capturePatches,
@@ -115,14 +115,12 @@ describe("capture", () => {
 
 describe("createLinkedTestStore", () => {
 	test("builds a fresh linked instance", () => {
-		const a = createStore(
-			({ set }) => ({ n: 1, setN: (x: number) => set({ n: x }) }),
-			{ name: "a" },
-		);
-		const b = createStore(
-			({ set }) => ({ m: 2, setM: (x: number) => set({ m: x }) }),
-			{ name: "b" },
-		);
+		const a = createStore(({ set }) => ({ n: 1, setN: (x: number) => set({ n: x }) }), {
+			name: "a",
+		});
+		const b = createStore(({ set }) => ({ m: 2, setM: (x: number) => set({ m: x }) }), {
+			name: "b",
+		});
 		const sum = linkedStore(
 			{ a, b },
 			({ stores }) => ({ total: () => stores.a.n() + stores.b.m() }),

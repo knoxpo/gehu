@@ -6,7 +6,7 @@ import {
 	runInInjectionContext,
 } from "@angular/core";
 import { TestBed } from "@angular/core/testing";
-import { injectStore, provideGehu, provideStore } from "@gehu/angular";
+import { injectStore, provideGehu, provideStore } from "@gehu-js/angular";
 import {
 	patchState,
 	signalStore,
@@ -15,14 +15,14 @@ import {
 	withMethods,
 	withProps,
 	withState,
-} from "@gehu/angular/ngrx-compat";
+} from "@gehu-js/angular/ngrx-compat";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const inCtx = <T>(fn: () => T): T => TestBed.runInInjectionContext(fn);
 
 beforeEach(() => TestBed.resetTestingModule());
 
-describe("@gehu/angular/ngrx-compat", () => {
+describe("@gehu-js/angular/ngrx-compat", () => {
 	it("supports providers:[Store] + inject(Store) with state, computed, props, and methods", () => {
 		const CounterStore = signalStore(
 			{ name: "compat-counter" },
@@ -31,7 +31,9 @@ describe("@gehu/angular/ngrx-compat", () => {
 			withComputed(({ count }) => ({ double: () => count() * 2 })),
 			withMethods((store) => ({
 				increment(): void {
-					patchState(store, (state: { count: number }) => ({ count: state.count + 1 }));
+					patchState(store, (state: { count: number }) => ({
+						count: state.count + 1,
+					}));
 				},
 			})),
 		);
@@ -116,9 +118,7 @@ describe("@gehu/angular/ngrx-compat", () => {
 			providers: [provideStore(CounterStore)],
 			parent: TestBed.inject(Injector),
 		});
-		const scoped = runInInjectionContext(child, () =>
-			injectStore(CounterStore),
-		);
+		const scoped = runInInjectionContext(child, () => injectStore(CounterStore));
 
 		expect(scoped.count()).toBe(0);
 		scoped.increment();

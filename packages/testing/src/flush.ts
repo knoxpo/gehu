@@ -1,5 +1,5 @@
 // Deterministic flushing for tests (md §16).
-import { flushSync } from "@gehu/core";
+import { flushSync } from "@gehu-js/core";
 
 /** Run pending core effects synchronously (subscriptions, autoRun triggers). */
 export const flushEffects = flushSync;

@@ -1,6 +1,6 @@
-# @gehu/angular/ngrx-compat Example
+# @gehu-js/angular/ngrx-compat Example
 
-Demonstrates **@gehu/angular/ngrx-compat**, a signal-based store API that provides an NgRx-like developer experience on top of Gehu's core engine.
+Demonstrates **@gehu-js/angular/ngrx-compat**, a signal-based store API that provides an NgRx-like developer experience on top of Gehu's core engine.
 
 ## Features
 
@@ -21,10 +21,10 @@ Then open `http://localhost:4200/`
 
 ## Store Comparison
 
-### @gehu/angular/ngrx-compat (This Example)
+### @gehu-js/angular/ngrx-compat (This Example)
 
 ```typescript
-import { signalStore, withState, withComputed, withMethods } from "@gehu/angular/ngrx-compat";
+import { signalStore, withState, withComputed, withMethods } from "@gehu-js/angular/ngrx-compat";
 
 @Injectable({ providedIn: "root" })
 export class CounterStore extends signalStore(
@@ -105,7 +105,7 @@ export class AppComponent {
 
 ## Key Differences
 
-| Feature | Traditional NgRx | @ngrx/signals | @gehu/angular/ngrx-compat | Gehu Core |
+| Feature | Traditional NgRx | @ngrx/signals | @gehu-js/angular/ngrx-compat | Gehu Core |
 |---------|-----------------|---------------|------------|-----------|
 | **API Style** | Actions/Reducers/Effects | Signals | Signals | Store function |
 | **Files per Feature** | 3+ (action, reducer, effect) | 1 | 1 | 1 |
@@ -117,7 +117,7 @@ export class AppComponent {
 
 ## Async Example: Users Store
 
-### @gehu/angular/ngrx-compat
+### @gehu-js/angular/ngrx-compat
 
 ```typescript
 @Injectable({ providedIn: "root" })
@@ -168,7 +168,7 @@ export const usersStore = signalStore(
 );
 ```
 
-Both @gehu/angular/ngrx-compat and @ngrx/signals have nearly identical APIs. The difference is **@gehu/angular/ngrx-compat is built on Gehu's core engine**, giving you:
+Both @gehu-js/angular/ngrx-compat and @ngrx/signals have nearly identical APIs. The difference is **@gehu-js/angular/ngrx-compat is built on Gehu's core engine**, giving you:
 
 - Smaller bundle size (Gehu is ~5KB gzipped)
 - No dependency on @ngrx/signals
@@ -177,5 +177,5 @@ Both @gehu/angular/ngrx-compat and @ngrx/signals have nearly identical APIs. The
 ## See Also
 
 - [Gehu Docs](../../docs/README.md)
-- [@gehu/angular/ngrx-compat API Docs](../../docs/NGRX_COMPAT_COMPARISON.md)
+- [@gehu-js/angular/ngrx-compat API Docs](../../docs/NGRX_COMPAT_COMPARISON.md)
 - [@ngrx/signals](https://ngrx.io/guide/signals)

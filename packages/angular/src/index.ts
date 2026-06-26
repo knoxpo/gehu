@@ -1,4 +1,4 @@
-// @gehu/angular — Angular adapter (md §12, §13, §16).
+// @gehu-js/angular — Angular adapter (md §12, §13, §16).
 // API renamed from md's stale `provideVeducx` → `provideGehu`.
 export { angularSignalAdapter } from "./adapter.js";
 export { bridgeStore } from "./bridge.js";

@@ -1,5 +1,5 @@
 import { DestroyRef, inject } from "@angular/core";
-import type { Store } from "@gehu/core";
+import type { Store } from "@gehu-js/core";
 import { bridgeStore } from "./bridge.js";
 import {
 	type CompatStoreToken,
@@ -19,10 +19,7 @@ export type InjectStoreOptions = {
 // A Gehu store returns a Store<T>; an ngrx-compat token returns its instance T.
 // Two overloads keep those distinct (a single union would make every accessor
 // `value | SignalLike<value>` and break call sites).
-export function injectStore<T>(
-	store: Store<T>,
-	opts?: InjectStoreOptions,
-): Store<T>;
+export function injectStore<T>(store: Store<T>, opts?: InjectStoreOptions): Store<T>;
 export function injectStore<T extends object>(
 	store: CompatStoreToken<T>,
 	opts?: InjectStoreOptions,

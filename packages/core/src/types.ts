@@ -56,18 +56,18 @@ export type Emitter = {
 };
 
 /** What a plugin receives once the store is built. */
-export type PluginApi<T = unknown> = {
+export type PluginApi<T extends object = object> = {
 	config: StoreConfig;
 	store: Store<T>;
 	getState(): StateOf<T>;
 	setState(partial: Partial<StateOf<T>>): void;
-	subscribe(listener: (state: StateOf<T>) => void): CleanupFn;
+	subscribe: Store<T>["subscribe"];
 	snapshot(): StateOf<T>;
 	onEvent(fn: (event: StoreEvent) => void): CleanupFn;
 };
 
 /** A store extension. Persistence is the first one; community can add more. */
-export type StorePlugin<T = unknown> = {
+export type StorePlugin<T extends object = object> = {
 	name: string;
 	init(api: PluginApi<T>): undefined | CleanupFn;
 };
@@ -95,7 +95,7 @@ export type StoreConfig = {
 	hydrate?: unknown;
 	plugins?: StorePlugin[];
 	// Internal: swaps the reactive backend (e.g. Angular signals). Defaults to the
-	// core signal adapter. Used by @gehu/angular to build per-injector instances.
+	// core signal adapter. Used by @gehu-js/angular to build per-injector instances.
 	adapter?: SignalAdapter;
 };
 
@@ -135,9 +135,7 @@ export type MutationOptions<Input, Output> = {
 	retry?: number;
 };
 
-export type StoreMutation<Input, Output> = ((
-	input: Input,
-) => Promise<Output | undefined>) & {
+export type StoreMutation<Input, Output> = ((input: Input) => Promise<Output | undefined>) & {
 	loading: SignalLike<boolean>;
 	error: SignalLike<unknown>;
 	status: SignalLike<ResourceStatus>;
@@ -150,14 +148,20 @@ export type StoreContext<T> = {
 	snapshot(): StateOf<T>;
 	effect(name: string, fn: () => void): CleanupFn;
 	resource<Data>(options: ResourceOptions<Data>): StoreResource<Data>;
-	mutation<Input, Output>(
-		options: MutationOptions<Input, Output>,
-	): StoreMutation<Input, Output>;
+	mutation<Input, Output>(options: MutationOptions<Input, Output>): StoreMutation<Input, Output>;
 };
 
 // --- store shape helpers (md §3–4) ---
 type IsFn<V> = V extends (...args: never[]) => unknown ? true : false;
 type IsResource<V> = V extends StoreResource<unknown> ? true : false;
+type IsArray<V> = V extends readonly unknown[] ? true : false;
+type IsObjectPathable<V> = V extends object
+	? IsFn<V> extends true
+		? false
+		: IsArray<V> extends true
+			? false
+			: true
+	: false;
 
 /** State-only view: drop functions (actions/mutations) and resources. */
 export type StateOf<T> = {
@@ -167,6 +171,32 @@ export type StateOf<T> = {
 			? never
 			: K]: T[K];
 };
+
+export type StatePath<T> = T extends object
+	? {
+			[K in keyof T & string]: IsObjectPathable<T[K]> extends true
+				? K | `${K}.${StatePath<T[K]>}`
+				: K;
+		}[keyof T & string]
+	: never;
+
+export type PathValue<T, P extends string> = P extends `${infer K}.${infer Rest}`
+	? K extends keyof T
+		? PathValue<T[K], Rest>
+		: never
+	: P extends keyof T
+		? T[P]
+		: never;
+
+export type SelectorOptions<Result> = {
+	equal?: (a: Result, b: Result) => boolean;
+};
+
+export type SubscribeOptions = {
+	fireImmediately?: boolean;
+};
+
+export type SelectorSubscribeOptions<Result> = SelectorOptions<Result> & SubscribeOptions;
 
 export type Setter<T> = (
 	partial: Partial<StateOf<T>> | ((state: T) => Partial<StateOf<T>>),
@@ -212,7 +242,17 @@ export type Store<T> = {
 			? T[K]
 			: SignalLike<T[K]>;
 } & {
-	subscribe(listener: (state: StateOf<T>) => void): CleanupFn;
+	select<Result>(
+		selector: (state: StateOf<T>) => Result,
+		options?: SelectorOptions<Result>,
+	): SignalLike<Result>;
+	pick<P extends StatePath<StateOf<T>>>(path: P): SignalLike<PathValue<StateOf<T>, P>>;
+	subscribe(listener: (state: StateOf<T>) => void, options?: SubscribeOptions): CleanupFn;
+	subscribe<Result>(
+		selector: (state: StateOf<T>) => Result,
+		listener: (value: Result, prev: Result) => void,
+		options?: SelectorSubscribeOptions<Result>,
+	): CleanupFn;
 	snapshot(): StateOf<T>;
 	getState(): StateOf<T>;
 };

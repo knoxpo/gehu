@@ -1,4 +1,13 @@
+<p align="center" style="text-align: center;">
+  <img src="docs/logo.png" alt="Gehu Logo" width="340" />
+</p>
+
 # Gehu
+
+<p align="center">
+  <a href="https://github.com/sponsors/nayanhathiwala"><img src="https://img.shields.io/badge/Sponsor-%E2%9D%A4-pink.svg?style=flat-square" alt="Sponsor" /></a>
+  <a href="https://paypal.me"><img src="https://img.shields.io/badge/Donate-PayPal-blue.svg?style=flat-square" alt="Donate" /></a>
+</p>
 
 > **Simple. Signal-powered. Angular-first. Platform-agnostic.**
 
@@ -57,11 +66,11 @@ Gehu follows a few non-negotiable principles:
 
 | Package | What | Size (gzip) |
 |---|---|---|
-| [`@gehu/core`](packages/core) | platform-agnostic store engine, signals, resources, mutations, linked stores, plugin system | ~2–3 KB |
-| [`@gehu/angular`](packages/angular) | `provideGehu` / `injectStore`, Angular signal adapter, SSR, zoneless | ~2.4 KB |
-| [`@gehu/persist`](packages/persist) | persistence plugin + storage adapters | ~1.2 KB |
-| [`@gehu/devtools`](packages/devtools) | event bridge (no UI) | ~0.9 KB |
-| [`@gehu/testing`](packages/testing) | framework- & runner-agnostic test helpers | ~1.6 KB |
+| [`@gehu-js/core`](packages/core) | platform-agnostic store engine, signals, resources, mutations, linked stores, plugin system | ~2–3 KB |
+| [`@gehu-js/angular`](packages/angular) | `provideGehu` / `injectStore`, Angular signal adapter, SSR, zoneless | ~2.4 KB |
+| [`@gehu-js/persist`](packages/persist) | persistence plugin + storage adapters | ~1.2 KB |
+| [`@gehu-js/devtools`](packages/devtools) | event bridge (no UI) | ~0.9 KB |
+| [`@gehu-js/testing`](packages/testing) | framework- & runner-agnostic test helpers | ~1.6 KB |
 
 
 ## Docs
@@ -263,19 +272,19 @@ Benefits include:
 # Package Structure
 
 ```text
-@gehu/core
+@gehu-js/core
 Platform-agnostic state engine
 
-@gehu/angular
+@gehu-js/angular
 Angular integration
 
-@gehu/testing
+@gehu-js/testing
 Framework-agnostic testing utilities
 
-@gehu/devtools
+@gehu-js/devtools
 Runtime devtools bridge
 
-@gehu/persist
+@gehu-js/persist
 Persistence adapters
 ```
 
@@ -316,11 +325,11 @@ Gehu aims to become:
 
 | Package | Target (gzip) |
 |----------|---------------:|
-| @gehu/core | 4–8 KB |
-| @gehu/angular | 2–5 KB |
-| @gehu/testing | 2–4 KB |
-| @gehu/devtools | 2–5 KB |
-| @gehu/persist | 1–3 KB |
+| @gehu-js/core | 4–8 KB |
+| @gehu-js/angular | 2–5 KB |
+| @gehu-js/testing | 2–4 KB |
+| @gehu-js/devtools | 2–5 KB |
+| @gehu-js/persist | 1–3 KB |
 
 Overall runtime target:
 

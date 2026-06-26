@@ -1,5 +1,5 @@
 // The devtools plugin (md §15). Opt-in is the production gate.
-import type { StorePlugin } from "@gehu/core";
+import type { StorePlugin } from "@gehu-js/core";
 import { type DevtoolsBus, devtoolsBus } from "./bus.js";
 
 export type DevtoolsOptions = {

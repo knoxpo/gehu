@@ -1,6 +1,6 @@
-# @gehu/angular/ngrx-compat Comparison Guide
+# @gehu-js/angular/ngrx-compat Comparison Guide
 
-A comprehensive guide comparing traditional NgRx, @ngrx/signals, @gehu/angular/ngrx-compat, and Gehu's core API.
+A comprehensive guide comparing traditional NgRx, @ngrx/signals, @gehu-js/angular/ngrx-compat, and Gehu's core API.
 
 ## Table of Contents
 
@@ -81,12 +81,12 @@ export class CounterStore extends signalStore(
 ) {}
 ```
 
-### @gehu/angular/ngrx-compat (Gehu-based, 1 File)
+### @gehu-js/angular/ngrx-compat (Gehu-based, 1 File)
 
 ```typescript
 import { Injectable } from "@angular/core";
-import { signalStore, withState, withMethods } from "@gehu/angular/ngrx-compat";
-import { patchState } from "@gehu/angular/ngrx-compat";
+import { signalStore, withState, withMethods } from "@gehu-js/angular/ngrx-compat";
+import { patchState } from "@gehu-js/angular/ngrx-compat";
 
 @Injectable({ providedIn: "root" })
 export class CounterStore extends signalStore(
@@ -106,12 +106,12 @@ export class CounterStore extends signalStore(
 ) {}
 ```
 
-**Key Difference:** @gehu/angular/ngrx-compat and @ngrx/signals APIs are nearly identical. The main difference is **@gehu/angular/ngrx-compat is powered by Gehu's core engine** (smaller, faster, fewer dependencies).
+**Key Difference:** @gehu-js/angular/ngrx-compat and @ngrx/signals APIs are nearly identical. The main difference is **@gehu-js/angular/ngrx-compat is powered by Gehu's core engine** (smaller, faster, fewer dependencies).
 
 ### Gehu Core API (Native)
 
 ```typescript
-import { createStore } from "@gehu/core";
+import { createStore } from "@gehu-js/core";
 
 export const counterStore = createStore(
   ({ set, get }) => ({
@@ -420,7 +420,7 @@ export class CounterComponent {
 ### Gehu Core API
 
 ```typescript
-import { injectStore } from "@gehu/angular";
+import { injectStore } from "@gehu-js/angular";
 import { counterStore } from "./counter.store";
 
 @Component({
@@ -463,8 +463,8 @@ No built-in devtools support. Must be added separately or use browser extensions
 ### ngrx-compat
 
 ```typescript
-import { provideGehu } from "@gehu/angular";
-import "@gehu/devtools";
+import { provideGehu } from "@gehu-js/angular";
+import "@gehu-js/devtools";
 
 export const appConfig: ApplicationConfig = {
   providers: [provideGehu({ devtools: true })],
@@ -474,8 +474,8 @@ export const appConfig: ApplicationConfig = {
 ### Gehu Core API
 
 ```typescript
-import { createStore } from "@gehu/core";
-import "@gehu/devtools";
+import { createStore } from "@gehu-js/core";
+import "@gehu-js/devtools";
 
 export const counterStore = createStore(
   ({ set, get }) => ({
@@ -488,9 +488,9 @@ export const counterStore = createStore(
 
 ### Persistence (All Signal-Based)
 
-**@gehu/angular/ngrx-compat + @gehu/persist**
+**@gehu-js/angular/ngrx-compat + @gehu-js/persist**
 ```typescript
-import { withHooks } from "@gehu/angular/ngrx-compat";
+import { withHooks } from "@gehu-js/angular/ngrx-compat";
 
 @Injectable({ providedIn: "root" })
 export class CounterStore extends signalStore(
@@ -522,7 +522,7 @@ ngOnInit() {
 
 ## Feature Comparison Table
 
-| Feature | Trad. NgRx | @ngrx/signals | @gehu/angular/ngrx-compat | Gehu Core |
+| Feature | Trad. NgRx | @ngrx/signals | @gehu-js/angular/ngrx-compat | Gehu Core |
 |---------|-----------|---------------|-----------|-----------|
 | **Files per Feature** | 3-5 | 1 | 1 | 1 |
 | **Type Safety** | Good | Excellent | Excellent | Good |
@@ -552,7 +552,7 @@ ngOnInit() {
 - **Want** signals + type-safe API + NgRx ecosystem
 - **Comfortable** with @ngrx dependencies
 
-### @gehu/angular/ngrx-compat ⭐ (Recommended)
+### @gehu-js/angular/ngrx-compat ⭐ (Recommended)
 - **Want** @ngrx/signals-like DX but **smaller bundle**
 - **Prefer** Gehu ecosystem (devtools, persist plugins)
 - **Building** new signal-based stores in existing Gehu projects
@@ -573,7 +573,7 @@ Traditional NgRx
     ↓
 @ngrx/signals (modern NgRx)
     ↓
-@gehu/angular/ngrx-compat (NgRx DX, Gehu engine)
+@gehu-js/angular/ngrx-compat (NgRx DX, Gehu engine)
     ↓
 Gehu Core API (ultimate simplicity)
 ```
@@ -585,6 +585,6 @@ Each step reduces boilerplate and bundle size while maintaining (or improving) d
 ## See Also
 
 - [Gehu Documentation](./README.md)
-- [@gehu/angular/ngrx-compat Example](../examples/angular-ngrx-compat/)
+- [@gehu-js/angular/ngrx-compat Example](../examples/angular-ngrx-compat/)
 - [@ngrx/signals Guide](https://ngrx.io/guide/signals)
 - [Angular Signals Guide](https://angular.io/guide/signals)

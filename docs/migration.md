@@ -60,7 +60,7 @@ export class CounterComponent {
 ## Migration tips
 
 - Move state + logic into the `createStore` factory; the file no longer imports
-  Angular, so it's unit-testable with `@gehu/testing`.
+  Angular, so it's unit-testable with `@gehu-js/testing`.
 - Swap `inject(MyService)` for `injectStore(myStore)` in components. Template
   call sites (`x.count()`) are unchanged — both are signals.
 - Need a fresh instance per component? `providers: [provideStore(myStore)]`.
@@ -69,7 +69,7 @@ export class CounterComponent {
 ## Migration: from NgRx Signal Store
 
 Gehu also ships a compatibility DSL for teams already using `@ngrx/signals`.
-The v1 target is a one-line import-path change to `@gehu/angular/ngrx-compat`,
+The v1 target is a one-line import-path change to `@gehu-js/angular/ngrx-compat`,
 not a full reimplementation of every NgRx helper.
 
 ```ts
@@ -80,7 +80,7 @@ import {
   withComputed,
   withMethods,
   withState,
-} from '@gehu/angular/ngrx-compat';
+} from '@gehu-js/angular/ngrx-compat';
 
 export const CounterStore = signalStore(
   { name: 'counter' },

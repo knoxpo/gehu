@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, test } from "bun:test";
-import { createStore, linkedStore } from "@gehu/core";
+import { createStore, linkedStore } from "@gehu-js/core";
 import { DevtoolsBus, devtools, devtoolsBus } from "./index.js";
 import type { DevtoolsEvent } from "./protocol.js";
 
@@ -14,7 +14,7 @@ afterEach(() => {
 	delete (globalThis as Record<string, unknown>).__GEHU_DEVTOOLS__;
 });
 
-describe("@gehu/devtools", () => {
+describe("@gehu-js/devtools", () => {
 	test("emits store.created + action + state events to the bus", () => {
 		const bus = new DevtoolsBus();
 		const events = collect(bus);
@@ -32,9 +32,7 @@ describe("@gehu/devtools", () => {
 			"state.changed",
 			"action.completed",
 		]);
-		expect(
-			events.every((e) => e.store === "counter" && typeof e.at === "number"),
-		).toBe(true);
+		expect(events.every((e) => e.store === "counter" && typeof e.at === "number")).toBe(true);
 	});
 
 	test("resource + mutation events flow through", async () => {
@@ -63,13 +61,10 @@ describe("@gehu/devtools", () => {
 
 	test("exportSnapshots + linked-store graph", () => {
 		const bus = new DevtoolsBus();
-		const a = createStore(
-			({ set }) => ({ n: 1, setN: (x: number) => set({ n: x }) }),
-			{
-				name: "a",
-				plugins: [devtools({ bus })],
-			},
-		);
+		const a = createStore(({ set }) => ({ n: 1, setN: (x: number) => set({ n: x }) }), {
+			name: "a",
+			plugins: [devtools({ bus })],
+		});
 		linkedStore({ a }, ({ stores }) => ({ doubled: () => stores.a.n() * 2 }), {
 			name: "sum",
 			plugins: [devtools({ bus })],
@@ -127,8 +122,6 @@ describe("@gehu/devtools", () => {
 				devtools: true,
 			},
 		);
-		expect(
-			events.some((e) => e.type === "store.created" && e.store === "short"),
-		).toBe(true);
+		expect(events.some((e) => e.type === "store.created" && e.store === "short")).toBe(true);
 	});
 });

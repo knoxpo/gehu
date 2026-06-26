@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Gehu DevTools demo</title>
+    <style>
+      body { font: 14px system-ui, sans-serif; max-width: 640px; margin: 40px auto; }
+      button { font: inherit; padding: 6px 12px; margin: 4px 4px 0 0; cursor: pointer; }
+      pre { background: #f4f4f4; padding: 10px; border-radius: 6px; }
+      h1 { font-size: 18px; }
+    </style>
+    <!-- Resolve the workspace's built ESM so we run with no bundler. -->
+    <script type="importmap">
+      {
+        "imports": {
+          "@gehu-js/core": "../../../packages/core/dist/esm/index.js",
+          "@gehu-js/devtools": "../../../packages/devtools/dist/esm/index.js"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <h1>Gehu DevTools demo</h1>
+    <p>Open DevTools (F12) → <b>Gehu</b> panel, then click the buttons.</p>
+    <div>
+      <button id="inc">counter.inc()</button>
+      <button id="reset">counter.reset()</button>
+      <button id="fetch">users.load() (resource)</button>
+      <button id="save">profile.save() (mutation)</button>
+      <button id="checkout">checkout (linked)</button>
+    </div>
+    <pre id="out">state will appear here…</pre>
+
+    <script type="module">
+      import { createStore, linkedStore } from "@gehu-js/core";
+      import "@gehu-js/devtools"; // registers `devtools: true` + sets the global hook path
+
+      const counter = createStore(
+        ({ set, ctx }) => ({
+          count: 0,
+          inc: () => set((s) => ({ count: s.count + 1 })),
+          reset: () => ctx.reset(),
+        }),
+        { name: "counter", devtools: true },
+      );
+
+      const users = createStore(
+        ({ ctx }) => ({
+          list: ctx.resource({
+            name: "list",
+            fetch: () => new Promise((r) => setTimeout(() => r(["Alex", "Sam"]), 300)),
+          }),
+        }),
+        { name: "users", devtools: true },
+      );
+
+      const profile = createStore(
+        ({ set, ctx }) => ({
+          name: null,
+          save: ctx.mutation({
+            name: "save",
+            run: () => new Promise((r) => setTimeout(() => r("Alex"), 300)),
+            onSuccess: (name) => set({ name }),
+          }),
+        }),
+        { name: "profile", devtools: true },
+      );
+
+      const checkout = linkedStore(
+        { counter, users },
+        ({ stores }) => ({
+          go: () => stores.counter.inc(),
+        }),
+        { name: "checkout", devtools: true },
+      );
+
+      const out = document.getElementById("out");
+      const dump = () => {
+        out.textContent = JSON.stringify(
+          { counter: counter.snapshot(), users: users.snapshot(), profile: profile.snapshot() },
+          null,
+          2,
+        );
+      };
+      dump();
+
+      document.getElementById("inc").onclick = () => { counter.inc(); dump(); };
+      document.getElementById("reset").onclick = () => { counter.reset(); dump(); };
+      document.getElementById("fetch").onclick = async () => { await users.list.refetch(); dump(); };
+      document.getElementById("save").onclick = async () => { await profile.save(); dump(); };
+      document.getElementById("checkout").onclick = () => { checkout.go(); dump(); };
+    </script>
+  </body>
+</html>

@@ -1,10 +1,7 @@
 // Devtools event protocol (md §15). Bridge only — no UI.
-import type { StoreEventType } from "@gehu/core";
+import type { StoreEventType } from "@gehu-js/core";
 
-export type DevtoolsEventType =
-	| StoreEventType
-	| "store.created"
-	| "store.destroyed";
+export type DevtoolsEventType = StoreEventType | "store.created" | "store.destroyed";
 
 export type DevtoolsEvent = {
 	type: DevtoolsEventType;

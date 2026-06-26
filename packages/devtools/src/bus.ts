@@ -1,6 +1,6 @@
 // In-process event bridge + optional global hook for a browser extension.
 // No UI is shipped here.
-import type { CleanupFn, Store } from "@gehu/core";
+import type { CleanupFn, Store } from "@gehu-js/core";
 import type { DevtoolsEvent } from "./protocol.js";
 
 type GlobalHook = { send?: (event: DevtoolsEvent) => void };

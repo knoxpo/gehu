@@ -5,7 +5,7 @@ import {
 	TransferState,
 } from "@angular/core";
 import { provideServerRendering, withRoutes } from "@angular/ssr";
-import { GEHU_HYDRATION } from "@gehu/angular";
+import { GEHU_HYDRATION } from "@gehu-js/angular";
 import { appConfig } from "./app.config";
 import { serverRoutes } from "./app.routes.server";
 import { GEHU_KEY } from "./hydration-key";

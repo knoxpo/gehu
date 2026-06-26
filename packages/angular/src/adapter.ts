@@ -4,16 +4,10 @@
 // when the registry/provideStore build an instance, so cleanup is auto-tied to
 // the injector (covers resource autoRun + DestroyRef).
 import { computed, effect, signal } from "@angular/core";
-import type {
-	CleanupFn,
-	SignalAdapter,
-	SignalLike,
-	WritableSignalLike,
-} from "@gehu/core";
+import type { CleanupFn, SignalAdapter, SignalLike, WritableSignalLike } from "@gehu-js/core";
 
 export const angularSignalAdapter: SignalAdapter = {
-	signal: <T>(value: T): WritableSignalLike<T> =>
-		signal(value) as WritableSignalLike<T>,
+	signal: <T>(value: T): WritableSignalLike<T> => signal(value) as WritableSignalLike<T>,
 	computed: <T>(fn: () => T): SignalLike<T> => computed(fn),
 	effect: (fn: () => void): CleanupFn => {
 		const ref = effect(fn);

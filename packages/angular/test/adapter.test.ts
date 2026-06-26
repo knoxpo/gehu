@@ -11,8 +11,8 @@ import {
 	provideGehu,
 	provideMockStore,
 	provideStore,
-} from "@gehu/angular";
-import { createStore, flushSync } from "@gehu/core";
+} from "@gehu-js/angular";
+import { createStore, flushSync } from "@gehu-js/core";
 import { beforeEach, describe, expect, it } from "vitest";
 
 const makeCounter = () =>
@@ -29,7 +29,7 @@ const inCtx = <T>(fn: () => T): T => TestBed.runInInjectionContext(fn);
 
 beforeEach(() => TestBed.resetTestingModule());
 
-describe("@gehu/angular injectStore", () => {
+describe("@gehu-js/angular injectStore", () => {
 	it("returns a reactive store; accessors are Angular signals; actions update", () => {
 		const counter = makeCounter();
 		TestBed.configureTestingModule({
@@ -42,6 +42,31 @@ describe("@gehu/angular injectStore", () => {
 		store.inc();
 		expect(store.count()).toBe(1);
 		expect(store.double()).toBe(2);
+	});
+
+	it("pick and select stay reactive on the native Angular path", () => {
+		const userStore = createStore(
+			({ set }) => ({
+				user: { name: "alex", age: 1 },
+				setUser: (user: { name: string; age: number }) => set({ user }),
+			}),
+			{ name: "user" },
+		);
+		TestBed.configureTestingModule({
+			providers: [provideZonelessChangeDetection(), provideGehu()],
+		});
+		const store = inCtx(() => injectStore(userStore));
+		const name = store.pick("user.name");
+		const age = store.select((s) => s.user.age);
+
+		expect(isSignal(name)).toBe(true);
+		expect(isSignal(age)).toBe(true);
+		expect(name()).toBe("alex");
+		expect(age()).toBe(1);
+
+		store.setUser({ name: "sam", age: 2 });
+		expect(name()).toBe("sam");
+		expect(age()).toBe(2);
 	});
 
 	it("per-injector isolation: provideStore child is independent of root (SSR safety)", () => {
@@ -126,5 +151,31 @@ describe("@gehu/angular injectStore", () => {
 		counter.inc(); // mutate singleton
 		flushSync(); // flush the core-effect bridge into the Angular signal
 		expect(store.count()).toBe(3);
+	});
+
+	it("singleton scope bridges pick/select as Angular signals", () => {
+		const userStore = createStore(
+			({ set }) => ({
+				user: { name: "alex", age: 1 },
+				setUser: (user: { name: string; age: number }) => set({ user }),
+			}),
+			{ name: "user" },
+		);
+		TestBed.configureTestingModule({
+			providers: [provideZonelessChangeDetection(), provideGehu()],
+		});
+		const store = inCtx(() => injectStore(userStore, { scope: "singleton" }));
+		const name = store.pick("user.name");
+		const age = store.select((s) => s.user.age);
+
+		expect(isSignal(name)).toBe(true);
+		expect(isSignal(age)).toBe(true);
+		expect(name()).toBe("alex");
+		expect(age()).toBe(1);
+
+		userStore.setUser({ name: "sam", age: 2 });
+		flushSync();
+		expect(name()).toBe("sam");
+		expect(age()).toBe(2);
 	});
 });

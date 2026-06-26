@@ -1,7 +1,7 @@
 import { type ApplicationConfig, inject, TransferState } from "@angular/core";
 import { provideClientHydration } from "@angular/platform-browser";
 import { provideRouter } from "@angular/router";
-import { GEHU_HYDRATION, provideGehu } from "@gehu/angular";
+import { GEHU_HYDRATION, provideGehu } from "@gehu-js/angular";
 import { routes } from "./app.routes";
 import { GEHU_KEY } from "./hydration-key";
 

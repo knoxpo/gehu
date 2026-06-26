@@ -1,28 +1,28 @@
 {
-  "name": "@gehu-example/angular-basic",
-  "version": "0.0.0",
-  "private": true,
-  "type": "module",
-  "scripts": {
-    "start": "ng serve",
-    "build": "ng build"
-  },
-  "dependencies": {
-    "@angular/common": "^20.0.0",
-    "@angular/compiler": "^20.0.0",
-    "@angular/core": "^20.0.0",
-    "@angular/platform-browser": "^20.0.0",
-    "@gehu/angular": "workspace:*",
-    "@gehu/core": "workspace:*",
-    "@gehu/devtools": "workspace:*",
-    "rxjs": "^7.8.0",
-    "tslib": "^2.6.0",
-    "zone.js": "^0.15.0"
-  },
-  "devDependencies": {
-    "@angular/build": "^20.0.0",
-    "@angular/cli": "^20.0.0",
-    "@angular/compiler-cli": "^20.0.0",
-    "typescript": "catalog:base"
-  }
+	"name": "@gehu-example/angular-basic",
+	"version": "0.0.0",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"start": "ng serve",
+		"build": "ng build"
+	},
+	"dependencies": {
+		"@angular/common": "^20.0.0",
+		"@angular/compiler": "^20.0.0",
+		"@angular/core": "^20.0.0",
+		"@angular/platform-browser": "^20.0.0",
+		"@gehu-js/angular": "workspace:*",
+		"@gehu-js/core": "workspace:*",
+		"@gehu-js/devtools": "workspace:*",
+		"rxjs": "^7.8.0",
+		"tslib": "^2.6.0",
+		"zone.js": "^0.15.0"
+	},
+	"devDependencies": {
+		"@angular/build": "^20.0.0",
+		"@angular/cli": "^20.0.0",
+		"@angular/compiler-cli": "^20.0.0",
+		"typescript": "catalog:base"
+	}
 }

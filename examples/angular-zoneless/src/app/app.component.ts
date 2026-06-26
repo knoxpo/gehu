@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from "@angular/core";
-import { injectStore } from "@gehu/angular";
+import { injectStore } from "@gehu-js/angular";
 import { usersStore } from "./users.store";
 
 @Component({

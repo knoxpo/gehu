@@ -61,9 +61,7 @@ export function createResource<Data>(
 		adapter.effect(() => {
 			const enabled = options.enabled ? options.enabled() : true;
 			if (!enabled) return;
-			const key = JSON.stringify(
-				options.key ? options.key() : [options.name ?? ""],
-			);
+			const key = JSON.stringify(options.key ? options.key() : [options.name ?? ""]);
 			if (key === lastKey) return;
 			lastKey = key;
 			void run().catch(() => {}); // errors surface via the error signal

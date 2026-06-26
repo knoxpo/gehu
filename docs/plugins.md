@@ -6,7 +6,7 @@ your own — a logger, an analytics bridge, cross-tab sync, time-travel, etc.
 ## The contract
 
 ```ts
-import type { StorePlugin } from '@gehu/core';
+import type { StorePlugin } from '@gehu-js/core';
 
 type StorePlugin<T = unknown> = {
   name: string;
@@ -29,7 +29,7 @@ type PluginApi<T> = {
 ## Example: a logger plugin
 
 ```ts
-import type { StorePlugin } from '@gehu/core';
+import type { StorePlugin } from '@gehu-js/core';
 
 export const logger = (): StorePlugin => ({
   name: 'logger',

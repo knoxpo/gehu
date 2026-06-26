@@ -1,8 +1,8 @@
 // Record actions + state patches for assertions (md §16). Mutates the given
 // store instance — use on a createTestStore() instance, not a shared singleton.
 
-import type { CleanupFn, StateOf, Store } from "@gehu/core";
-import { isMutation } from "@gehu/core";
+import type { CleanupFn, StateOf, Store } from "@gehu-js/core";
+import { isMutation } from "@gehu-js/core";
 
 type Dict = Record<string, unknown>;
 const META = new Set(["snapshot", "getState", "subscribe"]);

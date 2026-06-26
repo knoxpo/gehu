@@ -1,12 +1,7 @@
 // Internal reactive core (md §11). Platform-agnostic: no framework, no globals
 // beyond queueMicrotask. Pull-based reads, lazy computeds, microtask-batched
 // effects. Coarse-grained is fine for Phase 1.
-import type {
-	CleanupFn,
-	SignalAdapter,
-	SignalLike,
-	WritableSignalLike,
-} from "./types.js";
+import type { CleanupFn, SignalAdapter, SignalLike, WritableSignalLike } from "./types.js";
 
 interface Producer {
 	consumers: Set<Consumer>;

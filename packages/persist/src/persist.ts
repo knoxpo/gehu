@@ -1,14 +1,11 @@
 // The persist plugin (md §14). Generic over any StorageAdapter; the browser
 // specifics live in adapters.ts, so this stays pure logic.
-import type { PersistConfig, StoreConfig, StorePlugin } from "@gehu/core";
+import type { PersistConfig, StoreConfig, StorePlugin } from "@gehu-js/core";
 import { resolveStorage, type StorageChoice } from "./adapters.js";
 
 type Stored = { v: number; s: unknown };
 
-export function persist(
-	config: PersistConfig = {},
-	storeConfig?: StoreConfig,
-): StorePlugin {
+export function persist(config: PersistConfig = {}, storeConfig?: StoreConfig): StorePlugin {
 	const key = config.key ?? storeConfig?.name ?? "gehu";
 	const version = config.version ?? 0;
 	const select = config.select ?? ((s: unknown) => s);
@@ -44,10 +41,7 @@ export function persist(
 
 			// --- save on every change ---
 			const write = (state: unknown) =>
-				adapter.setItem(
-					key,
-					serialize({ v: version, s: select(state) } satisfies Stored),
-				);
+				adapter.setItem(key, serialize({ v: version, s: select(state) } satisfies Stored));
 			return api.subscribe((state) => write(state));
 		},
 	};

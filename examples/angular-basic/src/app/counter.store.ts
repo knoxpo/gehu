@@ -1,4 +1,4 @@
-import { createStore } from "@gehu/core";
+import { createStore } from "@gehu-js/core";
 
 export const counterStore = createStore(
 	({ set, get, ctx }) => ({

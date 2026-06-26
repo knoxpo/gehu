@@ -26,8 +26,7 @@ describe("plugin system", () => {
 		const seen: number[] = [];
 		const watcher: StorePlugin = {
 			name: "watch",
-			init: (api) =>
-				api.subscribe((s) => seen.push((s as { count: number }).count)),
+			init: (api) => api.subscribe((s) => seen.push((s as { count: number }).count)),
 		};
 		const store = createStore(
 			({ set }) => ({

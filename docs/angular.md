@@ -1,6 +1,6 @@
 # Angular
 
-`@gehu/angular` maps Gehu stores onto Angular signals, so store state drives
+`@gehu-js/angular` maps Gehu stores onto Angular signals, so store state drives
 templates natively (including zoneless). API renamed from the original
 `provideVeducx` to **`provideGehu`**.
 
@@ -8,7 +8,7 @@ templates natively (including zoneless). API renamed from the original
 
 ```ts
 import { bootstrapApplication } from '@angular/platform-browser';
-import { provideGehu } from '@gehu/angular';
+import { provideGehu } from '@gehu-js/angular';
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -23,7 +23,7 @@ bootstrapApplication(AppComponent, {
 signals, so use them directly in templates.
 
 ```ts
-import { injectStore } from '@gehu/angular';
+import { injectStore } from '@gehu-js/angular';
 import { counterStore } from './counter.store';
 
 @Component({

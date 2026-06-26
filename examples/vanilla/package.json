@@ -4,9 +4,9 @@
 	"private": true,
 	"type": "module",
 	"dependencies": {
-		"@gehu/core": "workspace:*",
-		"@gehu/persist": "workspace:*",
-		"@gehu/devtools": "workspace:*"
+		"@gehu-js/core": "workspace:*",
+		"@gehu-js/persist": "workspace:*",
+		"@gehu-js/devtools": "workspace:*"
 	},
 	"scripts": {
 		"start": "bun run index.ts",

@@ -35,8 +35,5 @@ export function isResource(v: unknown): boolean {
 }
 
 export function isMutation(v: unknown): boolean {
-	return (
-		typeof v === "function" &&
-		(v as unknown as Record<symbol, unknown>)[MUTATION] === true
-	);
+	return typeof v === "function" && (v as unknown as Record<symbol, unknown>)[MUTATION] === true;
 }

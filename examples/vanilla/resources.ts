@@ -1,6 +1,6 @@
 // Phase 2 demo: ctx.resource + ctx.mutation, framework-free (md §7, §8).
 // Run: bun run resources.ts
-import { createStore } from "@gehu/core";
+import { createStore } from "@gehu-js/core";
 
 type User = { id: string; name: string };
 
@@ -75,12 +75,7 @@ const main = async () => {
 	store.select("1");
 	console.log("after select(1), status:", store.user.status()); // loading
 	await sleep(30);
-	console.log(
-		"resolved → status:",
-		store.user.status(),
-		"data:",
-		store.user.data(),
-	);
+	console.log("resolved → status:", store.user.status(), "data:", store.user.data());
 
 	store.select("2");
 	await sleep(30);
@@ -101,12 +96,7 @@ const main = async () => {
 		await store.strictSave({ id: "x", name: "x" });
 		console.log("did not throw (unexpected)");
 	} catch (e) {
-		console.log(
-			"caught:",
-			(e as Error).message,
-			"| status:",
-			store.strictSave.status(),
-		);
+		console.log("caught:", (e as Error).message, "| status:", store.strictSave.status());
 	}
 
 	console.log("\n--- snapshot excludes resources/mutations/actions ---");

@@ -1,9 +1,9 @@
 import { describe, expect, test } from "bun:test";
-import type { StorageAdapter } from "@gehu/core";
-import { createStore, flushSync, memoryStorage } from "@gehu/core";
+import type { StorageAdapter } from "@gehu-js/core";
+import { createStore, flushSync, memoryStorage } from "@gehu-js/core";
 import { localStorageAdapter } from "./adapters.js";
 import { persist } from "./persist.js";
-import "@gehu/persist"; // side-effect: registers the `persist: {...}` shorthand
+import "@gehu-js/persist"; // side-effect: registers the `persist: {...}` shorthand
 
 const counter = (storage: StorageAdapter, extra = {}) =>
 	createStore(
@@ -118,15 +118,13 @@ describe("persist plugin", () => {
 			{
 				name: "counter",
 				hydrate: { count: 100 },
-				plugins: [
-					persist({ key: "counter", storage, hydratePrecedence: "persisted" }),
-				],
+				plugins: [persist({ key: "counter", storage, hydratePrecedence: "persisted" })],
 			},
 		);
 		expect(store.snapshot()).toEqual({ count: 5 });
 	});
 
-	test("persist: {...} shorthand works once @gehu/persist is imported", () => {
+	test("persist: {...} shorthand works once @gehu-js/persist is imported", () => {
 		const storage = memoryStorage();
 		const store = createStore(
 			({ set }) => ({
@@ -150,9 +148,7 @@ describe("persist plugin", () => {
 
 	test("localStorageAdapter is SSR-safe (no global → no throw, no persistence)", () => {
 		// Bun has no localStorage global → adapter falls back to memory.
-		expect(typeof (globalThis as Record<string, unknown>).localStorage).toBe(
-			"undefined",
-		);
+		expect(typeof (globalThis as Record<string, unknown>).localStorage).toBe("undefined");
 		const adapter = localStorageAdapter();
 		expect(() => adapter.setItem("x", "1")).not.toThrow();
 		// a fresh memory-backed adapter doesn't see the previous instance's write

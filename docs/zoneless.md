@@ -1,12 +1,12 @@
 # Zoneless Angular
 
-Gehu store accessors are Angular signals under `@gehu/angular`, so they work with
+Gehu store accessors are Angular signals under `@gehu-js/angular`, so they work with
 zoneless change detection with no extra wiring.
 
 ```ts
 import { bootstrapApplication } from '@angular/platform-browser';
 import { provideZonelessChangeDetection } from '@angular/core';
-import { provideGehu } from '@gehu/angular';
+import { provideGehu } from '@gehu-js/angular';
 
 bootstrapApplication(AppComponent, {
   providers: [

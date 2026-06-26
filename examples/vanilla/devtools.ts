@@ -1,7 +1,7 @@
 // Phase 6 demo: devtools event bridge (md §15), framework-free.
 // Run: bun run devtools.ts
-import { createStore } from "@gehu/core";
-import { devtools, devtoolsBus } from "@gehu/devtools";
+import { createStore } from "@gehu-js/core";
+import { devtools, devtoolsBus } from "@gehu-js/devtools";
 
 const timeline: string[] = [];
 devtoolsBus.subscribe((e) =>

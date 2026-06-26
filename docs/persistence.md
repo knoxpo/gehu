@@ -1,12 +1,12 @@
 # Persistence
 
-`@gehu/persist` is a plugin that loads state on init and saves it on change.
+`@gehu-js/persist` is a plugin that loads state on init and saves it on change.
 Browser-gated and SSR-safe: it never touches storage on the server.
 
 ## Two ways to use it
 
 ```ts
-import { persist } from '@gehu/persist';
+import { persist } from '@gehu-js/persist';
 
 // 1. explicit plugin (the extensible path)
 createStore(factory, {
@@ -14,7 +14,7 @@ createStore(factory, {
   plugins: [persist({ key: 'cart', storage: 'local', select: (s) => ({ items: s.items }) })],
 });
 
-// 2. md shorthand (works once @gehu/persist is imported anywhere)
+// 2. md shorthand (works once @gehu-js/persist is imported anywhere)
 createStore(factory, {
   name: 'cart',
   persist: { key: 'cart', storage: 'local' },
@@ -38,7 +38,7 @@ persist({
 ## Storage adapters
 
 ```ts
-import { localStorageAdapter, sessionStorageAdapter, memoryStorage } from '@gehu/persist';
+import { localStorageAdapter, sessionStorageAdapter, memoryStorage } from '@gehu-js/persist';
 ```
 
 All browser adapters are **gated**: when the global is missing (SSR/Node/Bun)
