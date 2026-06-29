@@ -4,11 +4,6 @@
 
 # Gehu
 
-<p align="center">
-  <a href="https://github.com/sponsors/nayanhathiwala"><img src="https://img.shields.io/badge/Sponsor-%E2%9D%A4-pink.svg?style=flat-square" alt="Sponsor" /></a>
-  <a href="https://paypal.me"><img src="https://img.shields.io/badge/Donate-PayPal-blue.svg?style=flat-square" alt="Donate" /></a>
-</p>
-
 > **Simple. Signal-powered. Angular-first. Platform-agnostic.**
 
 Gehu is a modern state management ecosystem built around a **flat, intuitive API**, **signal-based reactivity**, and a **platform-agnostic core**. It is designed to provide the simplicity of Zustand while embracing Angular's signal ecosystem, zoneless applications, and SSR-first development.
@@ -64,13 +59,14 @@ Gehu follows a few non-negotiable principles:
 
 ## Packages
 
-| Package | What | Size (gzip) |
-|---|---|---|
-| [`@gehu-js/core`](packages/core) | platform-agnostic store engine, signals, resources, mutations, linked stores, plugin system | ~2–3 KB |
-| [`@gehu-js/angular`](packages/angular) | `provideGehu` / `injectStore`, Angular signal adapter, SSR, zoneless | ~2.4 KB |
-| [`@gehu-js/persist`](packages/persist) | persistence plugin + storage adapters | ~1.2 KB |
-| [`@gehu-js/devtools`](packages/devtools) | event bridge (no UI) | ~0.9 KB |
-| [`@gehu-js/testing`](packages/testing) | framework- & runner-agnostic test helpers | ~1.6 KB |
+| Package | Current | Next | What | Size (gzip) |
+|---|---|---|---|---|
+| [`@gehu-js/core`](packages/core) | ![npm current version](https://img.shields.io/npm/v/%40gehu-js%2Fcore?label=latest) | ![npm next version](https://img.shields.io/npm/v/%40gehu-js%2Fcore/next?label=next&color=orange) | platform-agnostic store engine, signals, resources, mutations, linked stores, plugin system | ~2–3 KB |
+| [`@gehu-js/angular`](packages/angular) | ![npm current version](https://img.shields.io/npm/v/%40gehu-js%2Fangular?label=latest) | ![npm next version](https://img.shields.io/npm/v/%40gehu-js%2Fangular/next?label=next&color=orange) | `provideGehu` / `injectStore`, Angular signal adapter, SSR, zoneless | ~2.4 KB |
+| [`@gehu-js/react`](packages/react) | ![npm current version](https://img.shields.io/npm/v/%40gehu-js%2Freact?label=latest) | ![npm next version](https://img.shields.io/npm/v/%40gehu-js%2Freact/next?label=next&color=orange) | React hooks, provider scoping, SSR hydration helpers, server entry | ~2 KB |
+| [`@gehu-js/persist`](packages/persist) | ![npm current version](https://img.shields.io/npm/v/%40gehu-js%2Fpersist?label=latest) | ![npm next version](https://img.shields.io/npm/v/%40gehu-js%2Fpersist/next?label=next&color=orange) | persistence plugin + storage adapters | ~1.2 KB |
+| [`@gehu-js/devtools`](packages/devtools) | ![npm current version](https://img.shields.io/npm/v/%40gehu-js%2Fdevtools?label=latest) | ![npm next version](https://img.shields.io/npm/v/%40gehu-js%2Fdevtools/next?label=next&color=orange) | event bridge (no UI) | ~0.9 KB |
+| [`@gehu-js/testing`](packages/testing) | ![npm current version](https://img.shields.io/npm/v/%40gehu-js%2Ftesting?label=latest) | ![npm next version](https://img.shields.io/npm/v/%40gehu-js%2Ftesting/next?label=next&color=orange) | framework- & runner-agnostic test helpers | ~1.6 KB |
 
 
 ## Docs
@@ -80,6 +76,7 @@ Start at [docs/README.md](docs/README.md):
 - [Getting started](docs/getting-started.md)
 - [Core concepts](docs/core-concepts.md) · [Resources](docs/resources.md) · [Mutations](docs/mutations.md) · [Linked stores](docs/linked-stores.md)
 - [Angular](docs/angular.md) · [Zoneless](docs/zoneless.md) · [SSR](docs/ssr.md)
+- [Releasing](docs/releasing.md) · [Release checklist](RELEASE_CHECKLIST.md)
 - [Persistence](docs/persistence.md) · [Devtools](docs/devtools.md) · [Plugins](docs/plugins.md) · [Testing](docs/testing.md)
 - [Bundle size](docs/bundle-size.md) · [Migration](docs/migration.md)
 
@@ -90,6 +87,9 @@ Start at [docs/README.md](docs/README.md):
 - [`examples/angular-basic`](examples/angular-basic) — CSR
 - [`examples/angular-zoneless`](examples/angular-zoneless) — zoneless change detection
 - [`examples/angular-ssr`](examples/angular-ssr) — server-side rendering + hydration
+- [`examples/react-vite`](examples/react-vite) — React + Vite
+- [`examples/react-next`](examples/react-next) — Next.js + SSR-friendly registry flow
+- [`examples/angular-ngrx-compat`](examples/angular-ngrx-compat) — migration-oriented ngrx compatibility example
 
 
 ## Develop
@@ -98,9 +98,23 @@ Start at [docs/README.md](docs/README.md):
 bun install
 bun run build        # tsc -> ESM + d.ts for every package
 bun run typecheck
-bun test             # core / persist / testing / devtools (bun:test)
-cd packages/angular && bunx vitest run   # Angular adapter (jsdom, zoneless)
+bun run test:ci      # all package tests, including React and Angular adapter suites
+bun run release:pack-check
 ```
+
+## Release
+
+Gehu publishes each library in `packages/*` as a separate npm package.
+
+- Stable tags like `v1.2.3` publish to npm `latest`
+- Prerelease tags like `v1.2.3-next.0` publish to npm `next`
+- CI runs on pull requests and pushes to `main`
+- Publish runs from GitHub Actions with npm trusted publishing and `npm publish --provenance`
+
+Release docs:
+
+- [docs/releasing.md](docs/releasing.md)
+- [RELEASE_CHECKLIST.md](RELEASE_CHECKLIST.md)
 
 
 ## Design rules
@@ -236,6 +250,7 @@ Gehu is designed for modern server-side rendering.
 Supports:
 
 - Angular SSR
+- React SSR / Next.js hydration flows
 - Bun
 - Node.js
 - Browser hydration
@@ -278,6 +293,9 @@ Platform-agnostic state engine
 @gehu-js/angular
 Angular integration
 
+@gehu-js/react
+React integration
+
 @gehu-js/testing
 Framework-agnostic testing utilities
 
@@ -298,6 +316,7 @@ gehu/
 packages/
     core/
     angular/
+    react/
     testing/
     devtools/
     persist/
@@ -327,6 +346,7 @@ Gehu aims to become:
 |----------|---------------:|
 | @gehu-js/core | 4–8 KB |
 | @gehu-js/angular | 2–5 KB |
+| @gehu-js/react | 2–4 KB |
 | @gehu-js/testing | 2–4 KB |
 | @gehu-js/devtools | 2–5 KB |
 | @gehu-js/persist | 1–3 KB |
