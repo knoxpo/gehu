@@ -102,20 +102,6 @@ bun run test:ci      # all package tests, including React and Angular adapter su
 bun run release:pack-check
 ```
 
-## Release
-
-Gehu publishes each library in `packages/*` as a separate npm package.
-
-- Stable tags like `v1.2.3` publish to npm `latest`
-- Prerelease tags like `v1.2.3-next.0` publish to npm `next`
-- CI runs on pull requests and pushes to `main`
-- Publish runs from GitHub Actions with npm trusted publishing and `npm publish --provenance`
-
-Release docs:
-
-- [docs/releasing.md](docs/releasing.md)
-- [RELEASE_CHECKLIST.md](RELEASE_CHECKLIST.md)
-
 
 ## Design rules
 
@@ -332,7 +318,7 @@ tooling/
 
 Gehu aims to become:
 
-- The simplest state management library for Angular.
+- The simplest signal based state management library for javascript.
 - A reusable state engine for multiple frameworks.
 - An excellent developer experience.
 - Lightweight enough for small projects.
