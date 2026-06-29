@@ -1,0 +1,58 @@
+name: Publish npm packages
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22.14.0
+          registry-url: https://registry.npmjs.org
+          package-manager-cache: false
+
+      - name: Install
+        run: bun install --frozen-lockfile
+
+      - name: Build
+        run: bun run build
+
+      - name: Typecheck
+        run: bun run typecheck
+
+      - name: Test
+        run: bun run test:ci
+
+      - name: Validate packed packages
+        run: bun run release:pack-check
+
+      - name: Assert tag matches package versions
+        run: bun run release:assert-tag -- "$GITHUB_REF_NAME"
+
+      - name: Choose npm dist-tag
+        id: dist_tag
+        shell: bash
+        run: |
+          if [[ "$GITHUB_REF_NAME" == *-next.* ]]; then
+            echo "value=next" >> "$GITHUB_OUTPUT"
+          else
+            echo "value=latest" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Publish
+        run: bun run release:publish -- "${{ steps.dist_tag.outputs.value }}"

@@ -1,0 +1,8 @@
+logLevel = "debug" # "debug" | "warn" | "error"
+
+[install.lockfile]
+save = true
+print = "yarn"
+
+[debug]
+editor = "code"

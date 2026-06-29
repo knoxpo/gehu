@@ -10,6 +10,12 @@
 		"build": "bun run --filter '@gehu-js/core' build && bun run --filter '@gehu-js/angular' build && bun run --filter '@gehu-js/react' build && bun run --filter '@gehu-js/persist' build && bun run --filter '@gehu-js/devtools' build && bun run --filter '@gehu-js/testing' build",
 		"typecheck": "bun run --filter '@gehu-js/core' typecheck && bun run --filter '@gehu-js/angular' typecheck && bun run --filter '@gehu-js/react' typecheck && bun run --filter '@gehu-js/persist' typecheck && bun run --filter '@gehu-js/devtools' typecheck && bun run --filter '@gehu-js/testing' typecheck",
 		"test": "bun test",
+		"test:adapters": "bun run --filter '@gehu-js/react' test && bun run --filter '@gehu-js/angular' test",
+		"test:ci": "bun run --filter '@gehu-js/core' test && bun run --filter '@gehu-js/persist' test && bun run --filter '@gehu-js/devtools' test && bun run --filter '@gehu-js/testing' test && bun run test:adapters",
+		"release:version": "changeset version",
+		"release:pack-check": "node tools/release/pack-check.mjs",
+		"release:assert-tag": "node tools/release/assert-tag-version.mjs",
+		"release:publish": "node tools/release/publish.mjs",
 		"format": "biome format --write .",
 		"lint": "biome check .",
 		"lint:fix": "biome check --write ."
@@ -22,6 +28,8 @@
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^2.5.1",
+		"@changesets/changelog-git": "^0.2.1",
+		"@changesets/cli": "^2.31.0",
 		"@types/bun": "catalog:base",
 		"typescript": "catalog:base"
 	}

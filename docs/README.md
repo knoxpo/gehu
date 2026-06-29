@@ -14,6 +14,7 @@
 | [devtools.md](devtools.md) | `@gehu-js/devtools` event bridge |
 | [plugins.md](plugins.md) | writing your own plugin |
 | [testing.md](testing.md) | `@gehu-js/testing`, mocks, capture |
+| [releasing.md](releasing.md) | GitHub Actions CI, npm publishing, `next` vs `latest` |
 | [bundle-size.md](bundle-size.md) | size budget + how to stay small |
 | [migration.md](migration.md) | migration from Angular signal services and NgRx Signal Store |
 

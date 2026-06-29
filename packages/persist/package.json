@@ -1,6 +1,8 @@
 {
   "name": "@gehu-js/persist",
   "version": "0.1.0",
+  "description": "Persistence plugin and storage adapters for Gehu stores.",
+  "license": "LGPL-3.0-or-later",
   "type": "module",
   "sideEffects": [
     "./dist/esm/index.js",
@@ -9,6 +11,22 @@
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",
   "types": "./dist/types/index.d.ts",
+  "homepage": "https://github.com/knoxpo/gehu#readme",
+  "bugs": {
+    "url": "https://github.com/knoxpo/gehu/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/knoxpo/gehu.git",
+    "directory": "packages/persist"
+  },
+  "keywords": [
+    "gehu",
+    "persistence",
+    "signals",
+    "state-management",
+    "storage"
+  ],
   "exports": {
     ".": {
       "types": "./dist/types/index.d.ts",
@@ -19,6 +37,9 @@
   "files": [
     "dist"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
     "@gehu-js/core": "workspace:*"
   },
@@ -28,6 +49,8 @@
     "build:cjs": "tsc -p tsconfig.json --outDir dist/cjs --module commonjs --moduleResolution node --verbatimModuleSyntax false --declaration false --declarationMap false && bun -e \"await Bun.write('dist/cjs/package.json', '{\\n  \\\"type\\\": \\\"commonjs\\\"\\n}\\n')\"",
     "build:types": "tsc -p tsconfig.json --outDir dist/types --emitDeclarationOnly true",
     "build": "bun run --filter '@gehu-js/core' build && bun run clean && bun run build:esm && bun run build:cjs && bun run build:types",
+    "prepack": "node ../../tools/release/prepare-package.mjs",
+    "test": "bun run --filter '@gehu-js/core' build && bun test",
     "typecheck": "bun run --filter '@gehu-js/core' build && tsc -p tsconfig.json --noEmit"
   }
 }

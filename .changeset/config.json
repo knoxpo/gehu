@@ -1,0 +1,33 @@
+{
+	"$schema": "https://unpkg.com/@changesets/config@3.1.1/schema.json",
+	"changelog": [
+		"@changesets/changelog-git",
+		{
+			"repo": "knoxpo/gehu"
+		}
+	],
+	"commit": false,
+	"fixed": [
+		[
+			"@gehu-js/core",
+			"@gehu-js/angular",
+			"@gehu-js/react",
+			"@gehu-js/persist",
+			"@gehu-js/devtools",
+			"@gehu-js/testing"
+		]
+	],
+	"linked": [],
+	"access": "public",
+	"baseBranch": "main",
+	"updateInternalDependencies": "patch",
+	"ignore": [
+		"@gehu-example/angular-basic",
+		"@gehu-example/angular-ngrx-compat",
+		"@gehu-example/angular-ssr",
+		"@gehu-example/angular-zoneless",
+		"@gehu-example/react-next",
+		"@gehu-example/react-vite",
+		"@gehu-example/vanilla"
+	]
+}
