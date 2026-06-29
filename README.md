@@ -1,5 +1,5 @@
 <p align="center" style="text-align: center;">
-  <img src="docs/logo.png" alt="Gehu Logo" width="340" />
+  <img src="./docs/logo.png" alt="Gehu Logo" width="340" />
 </p>
 
 # Gehu
