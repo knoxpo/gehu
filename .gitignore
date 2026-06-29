@@ -3,6 +3,7 @@ dist
 *.log
 .DS_Store
 gehu-development-plan.md
-**/.next*
 **/.angular*
+**/.angular/cache*
+**/.next*
 **/dist*
